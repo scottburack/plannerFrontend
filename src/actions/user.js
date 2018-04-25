@@ -24,7 +24,7 @@ export function signInUser(username, password) {
 //   debugger;
 // }
 
-export function signUpUser(username, password) {
+export function signUpUser(username, password, firstName, lastName) {
   //use thunk here
   return dispatch => {
     fetch("http://localhost:3000/api/v1/signup", {
@@ -36,7 +36,9 @@ export function signUpUser(username, password) {
       body: JSON.stringify({
         user: {
           username: username,
-          password: password
+          password: password,
+          first_name: firstName,
+          last_name: lastName
         }
       })
     })
@@ -48,7 +50,7 @@ export function signUpUser(username, password) {
 }
 
 export function loginUser(userData) {
-  debugger
+  // debugger
   return {
     type: "LOGIN_USER",
     payload: userData
