@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { login } from './services/plannerapi'
+import { signup } from './services/plannerapi'
 
 class App extends Component {
 
   componentDidMount() {
-    login({username: 'scott', password: 'pebbles123'})
+    signup({username: 'scott', password: '123456'})
       .then(user => console.log(user))
   }
 
-  
+
   render() {
     return (
       <div className="App">
