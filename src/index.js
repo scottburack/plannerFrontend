@@ -11,7 +11,7 @@ import thunk from 'redux-thunk'
 import usersReducer from './reducers/usersReducer'
 import groupsReducer from './reducers/groupsReducer'
 
-const rootReducer = combineReducers(usersReducer, groupsReducer)
+const rootReducer = combineReducers({usersReducer, groupsReducer})
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 

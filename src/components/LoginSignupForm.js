@@ -42,7 +42,8 @@ class LoginSignupForm extends React.Component {
       firstName: '',
       lastName: '',
       newUsername: '',
-      newPassword: ''
+      newPassword: '',
+      reEnterPassword: ''
     })
   }
 

@@ -1,5 +1,5 @@
 export default function usersReducer(
-  state = { username: null, loggedIn: false, loading: false, users: [] },
+  state = { username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [] },
   action
 ) {
   switch (action.type) {
@@ -7,13 +7,20 @@ export default function usersReducer(
     case "LOADING_USER":
       return { ...state, loading: true };
     case "LOGIN_USER":
-      localStorage.setItem("jwt", action.payload.jwt);
-      return {
-        ...state,
-        username: action.payload.username,
-        loggedIn: true,
-        loading: false
-      };
+      if (action.payload.message === "Invalid username or password" || action.payload.message === "username has already been taken") {
+        return {...state}
+      } else {
+        localStorage.setItem("jwt", action.payload.jwt);
+        console.log(action.payload)
+        return {
+          ...state,
+          username: action.payload.username,
+          firstName: action.payload.first_name,
+          lastName: action.payload.last_name,
+          loggedIn: true,
+          loading: false
+        };
+      }
     case "LOG_OUT_USER":
       localStorage.removeItem("jwt");
       return { ...state, username: null, loggedIn: false };

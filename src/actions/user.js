@@ -50,7 +50,6 @@ export function signUpUser(username, password, firstName, lastName) {
 }
 
 export function loginUser(userData) {
-  // debugger
   return {
     type: "LOGIN_USER",
     payload: userData

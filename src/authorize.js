@@ -3,13 +3,20 @@ import { Redirect } from 'react-router-dom'
 
 const authorize = RenderedComponent => {
   return class extends React.Component {
-    render() {
-      console.log(this.props)
-      if (localStorage.getItem("jwt") && this.props.location.pathname === "/login") {
-        return <Redirect to='/' />
 
-      } else if (!localStorage.getItem('jwt') && this.props.location.pathname !== "/login") {
-          return <Redirect to='/login' />
+    loggedIn = () => {
+      return !!localStorage.getItem('jwt')
+    }
+
+    render() {
+      const { pathname } = this.props.location
+
+      console.log(this.props)
+      if (this.loggedIn() && pathname === "/") {
+        return <Redirect to='/userdashboard' />
+
+      } else if (!this.loggedIn() && pathname !== "/") {
+          return <Redirect to='/' />
 
       } else {
         return <RenderedComponent/>
