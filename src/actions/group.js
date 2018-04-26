@@ -1,4 +1,4 @@
-export function addGroup(name, link_url) {
+export function addGroup(creatorUsername, name, link_url) {
   return dispatch => {
     fetch('http://localhost:3000/api/v1/groups', {
       method: 'POST',
@@ -8,13 +8,12 @@ export function addGroup(name, link_url) {
       },
       body: JSON.stringify({
         group: {
+          creator_username: creatorUsername,
           name: name,
-          link_url: link_url
+          url_link: link_url
         }
       })
     })
-    .then(response => response.json())
-    .then(groupData => dispatch(addGroupForUser(groupData)))
   }
 }
 
@@ -24,3 +23,17 @@ export function addGroupForUser(groupData) {
     payload: groupData
   }
 }
+
+// export function getGroups() {
+//   return dispatch => {
+//     fetch('http://localhost:3000/api/v1/groups', {
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "application/json",
+//         Authorization: `Bearer ${localStorage.getItem("jwt")}`
+//       }
+//     })
+//     .then(response => response.json())
+//     .then(users => dispatch(setUsers(groups)))
+//   }
+// }

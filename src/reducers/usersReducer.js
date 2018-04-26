@@ -1,5 +1,5 @@
 export default function usersReducer(
-  state = { username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [] },
+  state = { username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [] },
   action
 ) {
   switch (action.type) {
@@ -26,6 +26,9 @@ export default function usersReducer(
       return { ...state, username: null, loggedIn: false };
     case "SET_USERS":
       return {...state, users: action.payload}
+    // case "ADD_GROUP":
+    //   const group = Object.assign({}, action.group)
+    //   return Object.assign
     default:
       return state;
   }

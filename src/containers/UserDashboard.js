@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getCurrentUser, getUsers, logOutUser } from '../actions/user'
+import AddGroupForm from '../components/AddGroupForm'
 
 class UserDashboard extends React.Component {
 
@@ -16,6 +17,7 @@ class UserDashboard extends React.Component {
         <button onClick={this.handleLogout}>Logout</button>
         <h3>Journal</h3>
         <h3>Groups</h3>
+        <AddGroupForm />
       </div>
     )
   }
