@@ -26,9 +26,8 @@ export default function usersReducer(
       return { ...state, username: null, loggedIn: false };
     case "SET_USERS":
       return {...state, users: action.payload}
-    // case "ADD_GROUP":
-    //   const group = Object.assign({}, action.group)
-    //   return Object.assign
+    case "GET_GROUPS":
+      return {...state, groups: action.payload}
     default:
       return state;
   }

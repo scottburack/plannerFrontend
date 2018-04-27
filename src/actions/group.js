@@ -14,26 +14,31 @@ export function addGroup(creatorUsername, name, link_url) {
         }
       })
     })
+    .then(response => response.json())
+    .then(userGroups => dispatch(getGroups(userGroups)))
   }
 }
 
-export function addGroupForUser(groupData) {
+export function getUserGroups(username) {
+  return dispatch => {
+    fetch('http://localhost:3000/api/v1/groups', {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        username: username
+      })
+    })
+    .then(response => response.json())
+    .then(userGroups => dispatch(getGroups(userGroups)))
+  }
+}
+
+
+export function getGroups(userGroups) {
   return {
-    type: "ADD_GROUP",
-    payload: groupData
+    type: "GET_GROUPS",
+    payload: userGroups
   }
 }
-
-// export function getGroups() {
-//   return dispatch => {
-//     fetch('http://localhost:3000/api/v1/groups', {
-//       headers: {
-//         "Content-Type": "application/json",
-//         Accept: "application/json",
-//         Authorization: `Bearer ${localStorage.getItem("jwt")}`
-//       }
-//     })
-//     .then(response => response.json())
-//     .then(users => dispatch(setUsers(groups)))
-//   }
-// }
