@@ -7,7 +7,8 @@ class AddGroupForm extends React.Component {
 
   state = {
     name: '',
-    link_url: ''
+    link_url: 'localhost:3001/groupdashboard/',
+    newNumberOfGroups: null
   }
 
   handleChange = (event) => {
@@ -18,16 +19,32 @@ class AddGroupForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
+    fetch('http://localhost:3000/api/v1/groups', {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+    }).then(resp => resp.json())
+      .then(json => this.setState({newNumberOfGroups: json.length + 1}))
+      .then(() => this.addToApi())
+  }
+
+  addToApi = () => {
+    let numString = String(this.state.newNumberOfGroups)
+    let linkURL = this.state.link_url + numString
+    console.log(linkURL)
     this.props.addGroup(
       this.props.userId,
       this.state.name,
-      this.state.link_url
+      linkURL
     )
     this.setState({
       name: '',
-      link_url: ''
+      link_url: '',
+      newNumberOfGroups: null
     })
   }
+
 
   render() {
     return (
