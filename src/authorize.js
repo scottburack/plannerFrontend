@@ -11,7 +11,6 @@ const authorize = RenderedComponent => {
     render() {
       const { pathname } = this.props.location
 
-      console.log(this.props)
       if (this.loggedIn() && pathname === "/") {
         return <Redirect to='/userdashboard' />
 

@@ -20,7 +20,7 @@ class AddGroupForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.addGroup(
-      this.props.username,
+      this.props.userId,
       this.state.name,
       this.state.link_url
     )

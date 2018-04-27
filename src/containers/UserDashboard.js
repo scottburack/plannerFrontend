@@ -12,9 +12,9 @@ class UserDashboard extends React.Component {
     this.props.logOutUser()
   }
 
-  componentDidMount = () => {
-    this.props.getUserGroups(this.props.username)
-  }
+  // componentDidMount = () => {
+  //   this.props.getUserGroups(this.props.username)
+  // }
 
   renderGroups = () => {
     return this.props.groups.map(group => {
@@ -23,7 +23,7 @@ class UserDashboard extends React.Component {
   }
 
   render() {
-    console.log(this.props.groups)
+    console.log(this.props)
     return (
       <div>
         <h1>Hello {this.props.firstName} {this.props.lastName}</h1>
@@ -31,7 +31,7 @@ class UserDashboard extends React.Component {
         <h3>Journal</h3>
         <h3>Groups</h3>
         <ul>
-          {this.renderGroups()}
+          { this.props.groups !== undefined ? this.renderGroups() : null}
         </ul>
         <AddGroupForm />
       </div>
