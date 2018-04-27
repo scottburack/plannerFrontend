@@ -24,4 +24,8 @@ const authorize = RenderedComponent => {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {...state.usersReducer}
+}
+
 export default authorize

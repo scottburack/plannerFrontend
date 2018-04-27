@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addGroup } from '../actions/group'
-import { addGroupUserRelation } from '../actions/groupUser'
-import { getCurrentUser } from '../actions/user'
+
 
 class AddGroupForm extends React.Component {
 
