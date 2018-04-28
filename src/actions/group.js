@@ -19,22 +19,6 @@ export function addGroup(userId, name, link_url) {
   }
 }
 
-export function getUserGroups(username) {
-  // return dispatch => {
-  //   fetch('http://localhost:3000/api/v1/groups', {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       username: username
-  //     })
-  //   })
-  //   .then(response => response.json())
-  //   .then(userGroups => dispatch(getGroups(userGroups)))
-  // }
-}
-
 
 export function getGroups(userGroups) {
   return {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { getCurrentUser, getUsers, logOutUser } from '../actions/user'
 import AddGroupForm from '../components/AddGroupForm'
 import Group from '../components/Group'
-import { getUserGroups } from '../actions/group'
+
 
 
 class UserDashboard extends React.Component {
@@ -23,7 +23,7 @@ class UserDashboard extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div>
         <h1>Hello {this.props.firstName} {this.props.lastName}</h1>
@@ -45,4 +45,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, {logOutUser, getUserGroups})(UserDashboard)
+export default connect(mapStateToProps, {logOutUser})(UserDashboard)

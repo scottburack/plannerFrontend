@@ -1,5 +1,5 @@
 export default function usersReducer(
-  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [] },
+  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [] },
   action
 ) {
   switch (action.type) {
@@ -19,6 +19,7 @@ export default function usersReducer(
           firstName: action.payload.first_name,
           lastName: action.payload.last_name,
           groups: action.payload.groups,
+          events: action.payload.events,
           loggedIn: true,
           loading: false
         };
@@ -30,6 +31,8 @@ export default function usersReducer(
       return {...state, users: action.payload}
     case "GET_GROUPS":
       return {...state, groups: action.payload}
+    case "GET_EVENTS":
+      return {...state, events: action.payload}
     default:
       return state;
   }

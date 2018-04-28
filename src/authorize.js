@@ -18,7 +18,8 @@ const authorize = RenderedComponent => {
           return <Redirect to='/' />
 
       } else {
-        return <RenderedComponent/>
+        // debugger
+        return <RenderedComponent pathname={pathname}/>
       }
     }
   }
