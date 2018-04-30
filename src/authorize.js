@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 const authorize = RenderedComponent => {
   return class extends React.Component {
@@ -8,10 +9,12 @@ const authorize = RenderedComponent => {
       return !!localStorage.getItem('jwt')
     }
 
+
     render() {
+      console.log(this.props);
       const { pathname } = this.props.location
 
-      if (this.loggedIn() && pathname === "/") {
+      if ((this.loggedIn() && pathname === "/") || (this.loggedIn() && pathname === "/userdashboard/undefined")) {
         return <Redirect to='/userdashboard' />
 
       } else if (!this.loggedIn() && pathname !== "/") {

@@ -4,6 +4,7 @@ import GroupDashboard from '../containers/GroupDashboard'
 
 
 const Group = (props) => {
+  console.log('group component');
     return <Link to={'/groupdashboard/'+props.group.id}><li>{props.group.name}</li></Link>
 }
 

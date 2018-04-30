@@ -26,8 +26,8 @@ class App extends Component {
     return (
       <div className="App">
         <Route exact path="/" render={(props) => <AuthLoginForm {...props} />} />
-        <Route exact path="/userdashboard/" component={AuthUserDashboard} />
-        <Route path="/groupdashboard/" component={AuthGroupDashboard} />
+        <Route path="/userdashboard" component={AuthUserDashboard} />
+        <Route path="/groupdashboard" component={AuthGroupDashboard} />
       </div>
     );
   }

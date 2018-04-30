@@ -1,10 +1,12 @@
 export default function usersReducer(
-  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [] },
+  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [], friends: [] },
   action
 ) {
   switch (action.type) {
     //add in loading case and additional state
     case "LOADING_USER":
+      return { ...state, loading: true };
+    case "LOADING_FRIENDS":
       return { ...state, loading: true };
     case "LOGIN_USER":
       if (action.payload.message === "Invalid username or password" || action.payload.message === "username has already been taken") {
@@ -33,6 +35,9 @@ export default function usersReducer(
       return {...state, groups: action.payload}
     case "GET_EVENTS":
       return {...state, events: action.payload}
+    case "GET_FRIENDS":
+      debugger
+      return {...state, friends: action.payload}
     default:
       return state;
   }

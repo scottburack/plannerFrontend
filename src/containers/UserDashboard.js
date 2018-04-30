@@ -17,6 +17,7 @@ class UserDashboard extends React.Component {
   // }
 
   renderGroups = () => {
+    console.log("render groups triggered");
     return this.props.groups.map(group => {
       return <Group key={group.id} group={group} />
     })

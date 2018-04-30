@@ -26,3 +26,22 @@ export function getGroups(userGroups) {
     payload: userGroups
   }
 }
+
+export function getFriends(groupId) {
+  return dispatch => {
+    dispatch({ type: 'LOADING_FRIENDS' })
+    return fetch(`http://localhost:3000/api/v1/groups/${groupId}`)
+    .then(resp => resp.json())
+    .then(friends =>
+      {debugger}
+      // dispatch({type: 'GET_FRIENDS', payload: friends})
+    )
+  }
+}
+
+
+export function loadingFriends() {
+  return {
+    type: "LOADING_FRIENDS"
+  };
+}
