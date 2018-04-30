@@ -35,6 +35,8 @@ export default function usersReducer(
       return {...state, events: action.payload}
     case "GET_FRIENDS":
       return {...state, friends: action.payload}
+    case "EVENT_VOTES":
+      return action.payload.votes
     default:
       return state;
   }

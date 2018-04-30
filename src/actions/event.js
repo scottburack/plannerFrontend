@@ -29,3 +29,29 @@ export function getEvents(groupEvents) {
     payload: groupEvents
   }
 }
+
+export function handleEventVoting(votes, eventId) {
+  // debugger
+    fetch(`http://localhost:3000/api/v1/events/${eventId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        event: {
+          votes: votes
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(eventVotes => console.log(eventVotes))
+  console.log('done');
+}
+
+export function getVotes(eventVotes) {
+  return {
+    type: 'EVENT_VOTES',
+    payload: eventVotes
+  }
+}

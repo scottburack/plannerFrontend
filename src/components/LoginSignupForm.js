@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { signInUser, signUpUser } from '../actions/user'
 // import { Form, Divider, Header, Container } from 'semantic-ui-react'
+import TextField from 'material-ui/TextField';
 
 class LoginSignupForm extends React.Component {
 

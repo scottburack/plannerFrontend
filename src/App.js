@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import LoginSignupForm from './components/LoginSignupForm'
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -25,7 +27,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Route exact path="/" render={(props) => <AuthLoginForm {...props} />} />
+        <div id="homepage">
+          <Route exact path="/" render={(props) => <AuthLoginForm {...props} />}/>
+        </div>
         <Route path="/userdashboard" component={AuthUserDashboard} />
         <Route path="/groupdashboard" component={AuthGroupDashboard} />
       </div>

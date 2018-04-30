@@ -68,8 +68,6 @@ class GroupDashboard extends React.Component {
     this.props.actions.addUserToGroup(this.state.groupId, userId)
   }
 
-
-
   render() {
     console.log(this.state);
     console.log(this.props);
