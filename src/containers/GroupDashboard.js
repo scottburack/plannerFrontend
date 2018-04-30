@@ -12,27 +12,29 @@ class GroupDashboard extends React.Component {
 
   state = {
     addEventButtonClicked: false,
+    addFriendButtonClicked: false,
     groupId: parseInt(this.props.pathname.split('/')[2]),
-    friendSearch: ''
+    friendSearch: '',
+    queryFriends: []
   }
 
-  handleClick = () => {
+  componentDidMount = () => {
+
+    if (this.props.friends.length === 0) {
+      console.log('In group mount');
+      this.props.actions.getFriends(this.state.groupId);
+    }
+
+    fetch("http://localhost:3000/api/v1/users").then(resp => resp.json()).then(json => this.setState({queryFriends: json}))
+  }
+
+  handleClick = (event) => {
     this.setState({
-      addEventButtonClicked: true
+      [event.target.name]: true
     })
   }
 
-  static getDerivedStateFromProps = (nextProps, prevState) => {
-    console.log("component mount for group dash");
-
-    if (nextProps.events.length !== 0 && nextProps.groups.length !== 0) {
-      nextProps.actions.getFriends(String(prevState.groupId))
-      debugger
-    }
-  }
-
   renderEvents = () => {
-    // debugger
     const events = this.props.events.filter(event => {
       return event.group_id === this.state.groupId
     })
@@ -41,43 +43,55 @@ class GroupDashboard extends React.Component {
     })
   }
 
-  // getFriends = () => {
-  //   fetch(`http://localhost:3000/api/v1/groups/${this.state.groupId}`, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     }
-  //   })
-  //   .then(resp => resp.json())
-  //   .then(friends => this.renderFriends(friends))
-  // }
-
-  renderFriends = (friends) => {
-    return friends.map(friend => {
-      return <li>friend.username</li>
+  renderFriends = () => {
+    return this.props.friends.map(friend => {
+      return <li>{friend.username}</li>
     })
+  }
+
+  handleFriendSearchChange = (event) => {
+    event.preventDefault()
+    this.setState({
+      friendSearch: event.target.value
+    })
+  }
+
+  renderForFriendSearch = () => {
+    const filteredFriends = this.state.queryFriends.filter(user => {
+      return user.username.toUpperCase().includes(this.state.friendSearch.toUpperCase())
+    })
+    // debugger
+    return filteredFriends.map(friend => <a href="#" id={friend.id} onClick={() => {this.handleAddFriendClick(friend.id)}}><br/>{friend.username}</a>)
+  }
+
+  handleAddFriendClick = (userId) => {
+    this.props.actions.addUserToGroup(this.state.groupId, userId)
   }
 
 
 
   render() {
-    console.log(this.props.events);
+    console.log(this.state);
     console.log(this.props);
-    // console.log(this.getFriends());
+
     return (
       <div>
         <h1>Group Dashboard</h1>
         <h3>Friends!</h3>
         <ul>
-
+          { this.props.friends.length > 0 ? this.renderFriends() : null}
         </ul>
-        <button onClick={this.handleFriendSearch}>Add Friend!</button>
+
+        {this.state.addFriendButtonClicked ? <AddFriendSearchBar friendSearch={this.state.friendSearch} handleChange={this.handleFriendSearchChange} /> : null}
+        {this.state.addFriendButtonClicked && this.state.friendSearch !== '' ? this.renderForFriendSearch() : null}
+        <button name='addFriendButtonClicked' onClick={this.handleClick}>Add Friend!</button>
+
         <h3>Events!</h3>
         <ul>
           { this.props.events ? this.renderEvents() : null }
         </ul>
         {this.state.addEventButtonClicked ? <AddEventForm groupId={this.state.groupId}/> : null}
-        <button onClick={this.handleClick}>Add Event!</button>
+        <button name='addEventButtonClicked' onClick={this.handleClick}>Add Event!</button>
       </div>
     )
   }
@@ -85,13 +99,7 @@ class GroupDashboard extends React.Component {
 }
 
 const mapStateToProps = (state) => {
- return {...state,
-   userId: state.user_id,
-   username: state.username,
-   firstName: state.first_name,
-   lastName: state.last_name,
-   groups: state.groups,
-   events: state.events}
+ return {...state.usersReducer}
 }
 
 const mapDispatchToProps = (dispatch) => {
