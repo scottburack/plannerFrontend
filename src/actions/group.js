@@ -58,3 +58,8 @@ export function addUserToGroup(groupId, userId) {
     .then(friends => dispatch({type: 'GET_FRIENDS', payload: friends}))
   }
 }
+
+export function resetFriends() {
+  return dispatch =>
+  dispatch({type: 'RESET_FRIENDS'})
+}

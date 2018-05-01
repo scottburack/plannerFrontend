@@ -26,7 +26,7 @@ export default function usersReducer(
       }
     case "LOG_OUT_USER":
       localStorage.removeItem("jwt");
-      return { ...state, username: null, loggedIn: false };
+      return { ...state, username: null, loggedIn: false, groups: [], events: [], friends: [] };
     case "SET_USERS":
       return {...state, users: action.payload}
     case "GET_GROUPS":
@@ -37,8 +37,8 @@ export default function usersReducer(
       return {...state, friends: action.payload}
     case "EVENT_VOTES":
       return action.payload.votes
-    // case "GET_GROUP_FRIENDS":
-    //   return {...state, groupUsers: action.payload}
+    case "RESET_FRIENDS":
+      return {...state, friends: []}
     default:
       return state;
   }

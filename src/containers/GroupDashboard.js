@@ -21,17 +21,13 @@ class GroupDashboard extends React.Component {
     eventsToShow: []
   }
 
-  componentWillMount = () => {
-    this.setState(this.state)
-  }
-
   componentDidMount = () => {
 
     if (this.props.friends.length === 0) {
       console.log('In group mount');
       this.props.actions.getFriends(this.state.groupId);
     }
-
+    window.onpopstate = this.onBackButtonEvent;
     fetch("http://localhost:3000/api/v1/users").then(resp => resp.json()).then(json => this.setState({queryFriends: json}))
   }
 
@@ -39,6 +35,10 @@ class GroupDashboard extends React.Component {
     this.setState({
       [event.target.name]: true
     })
+  }
+
+  onBackButtonEvent = () => {
+    this.props.actions.resetFriends()
   }
 
   renderEvents = () => {
@@ -61,7 +61,7 @@ class GroupDashboard extends React.Component {
 
   renderFriends = () => {
     // debugger
-    
+
     return this.props.friends.map(friend => {
       return <li>{friend.username}</li>
     })
