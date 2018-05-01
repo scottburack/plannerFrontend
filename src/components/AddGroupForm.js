@@ -25,6 +25,7 @@ class AddGroupForm extends React.Component {
         Accept: "application/json"
       },
     }).then(resp => resp.json())
+      // Maybe instead of getting the length of json and adding 1, I get the last objects id and add one
       .then(json => this.setState({newNumberOfGroups: json.length + 1}))
       .then(() => this.addToApi())
   }

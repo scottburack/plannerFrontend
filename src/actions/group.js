@@ -55,6 +55,6 @@ export function addUserToGroup(groupId, userId) {
       })
     })
     .then(response => response.json())
-    .then(userGroups => dispatch(getGroups(userGroups)))
+    .then(friends => dispatch({type: 'GET_FRIENDS', payload: friends}))
   }
 }
