@@ -49,15 +49,14 @@ class GroupDashboard extends React.Component {
       return event.group_id === this.state.groupId && today <= event.date_end
     })
 
-    let calendarEventObjs = []
+    // let calendarEventObjs = []
+    // this.setState({eventsToShow: events})
 
     return events.map(event => {
       // calendarEventObjs.push({startDate: event.date_start, endDate: event.date_end})
       return <Event key={event.id} event={event} />
     })
 
-
-    // this.setState({eventsToShow: calendarEventObjs})
   }
 
   renderFriends = () => {
@@ -109,7 +108,7 @@ class GroupDashboard extends React.Component {
         {this.state.addEventButtonClicked ? <AddEventForm groupId={this.state.groupId}/> : null}
         <button name='addEventButtonClicked' onClick={this.handleClick}>Add Event!</button>
 
-        <GroupCalendar eventsToShow={this.state.eventsToShow}/>
+        <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
       </div>
     )
   }
