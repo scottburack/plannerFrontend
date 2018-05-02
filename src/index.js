@@ -10,10 +10,7 @@ import thunk from 'redux-thunk'
 // import { composeWithDevTools } from "redux-devtools-extension";
 import usersReducer from './reducers/usersReducer'
 import groupsReducer from './reducers/groupsReducer'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-// require('react-big-calendar/lib/css/react-big-calendar.css')
 
 const rootReducer = combineReducers({usersReducer, groupsReducer})
 

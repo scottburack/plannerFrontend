@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getCurrentUser, getUsers, logOutUser } from '../actions/user'
 import AddGroupForm from '../components/AddGroupForm'
 import Group from '../components/Group'
+import Journal from '../components/Journal'
 
 
 
@@ -30,6 +31,7 @@ class UserDashboard extends React.Component {
         <h1>Hello {this.props.firstName} {this.props.lastName}</h1>
         <button onClick={this.handleLogout}>Logout</button>
         <h3>Journal</h3>
+        <Journal />
         <h3>Groups</h3>
         <ul>
           { this.props.groups !== undefined ? this.renderGroups() : null}

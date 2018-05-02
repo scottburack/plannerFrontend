@@ -16,7 +16,7 @@ class AddEventForm extends React.Component {
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    },() => console.log(this.state))
+    })
   }
 
   handleSubmit = (event) => {
@@ -42,7 +42,6 @@ class AddEventForm extends React.Component {
 
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
