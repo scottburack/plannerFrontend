@@ -43,18 +43,10 @@ class GroupDashboard extends React.Component {
 
   renderEvents = () => {
     let now = new Date(Date.now())
-    console.log(now);
     let today = Moment(now, "MM-DD-YYYY").format().split('T')[0]
+    let time = Moment(now, "hh:mm:ss a").format()
     const events = this.props.events.filter(event => {
-      console.log(now.getTime());
-      console.log(event.time_end);
-      // console.log(event.time_end.getTime());
-      if (today < event.date_end && now.getTime() < event.time_end) {
-        console.log(true);
-      } else {
-        console.log(false);
-      }
-      return event.group_id === this.state.groupId && today < event.date_end
+      return event.group_id === this.state.groupId && today <= event.date_end
     })
 
     let calendarEventObjs = []
