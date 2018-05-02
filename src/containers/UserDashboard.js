@@ -1,11 +1,13 @@
 import React from 'react'
+import '../App.css'
+import { Layout, Button } from 'antd'
 import { connect } from 'react-redux'
 import { getCurrentUser, getUsers, logOutUser } from '../actions/user'
 import AddGroupForm from '../components/AddGroupForm'
 import Group from '../components/Group'
 import Journal from '../components/Journal'
 
-
+const { Header, Footer, Sider, Content } = Layout;
 
 class UserDashboard extends React.Component {
 
@@ -27,16 +29,26 @@ class UserDashboard extends React.Component {
   render() {
     console.log(this.props);
     return (
-      <div>
-        <h1>Hello {this.props.firstName} {this.props.lastName}</h1>
-        <button onClick={this.handleLogout}>Logout</button>
-        <h3>Journal</h3>
-        <Journal />
-        <h3>Groups</h3>
-        <ul>
-          { this.props.groups !== undefined ? this.renderGroups() : null}
-        </ul>
-        <AddGroupForm />
+      <div id='user-dashboard'>
+        <Layout>
+          <Header>
+            <h1 className='username-label'>Hello {this.props.firstName} {this.props.lastName}</h1>
+            <Button style={{float: 'right'}} onClick={this.handleLogout}>Logout</Button>
+          </Header>
+        <Layout>
+          <Sider>
+            <h3 id='groups-label'>Groups</h3>
+            <ul>
+              { this.props.groups !== undefined ? this.renderGroups() : null}
+            </ul>
+            <AddGroupForm />
+          </Sider>
+          <Content>
+            <h3>Journal</h3>
+            <Journal />
+          </Content>
+        </Layout>
+        </Layout>
       </div>
     )
   }

@@ -51,7 +51,7 @@ class AddGroupForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>Add Group: </label>
+          <label style={{color: 'white'}}>Add Group: </label>
           <input type='text' value={this.state.name} onChange={(event) => this.handleChange(event)}/>
           <input type='submit' />
         </form>

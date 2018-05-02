@@ -88,6 +88,11 @@ class GroupDashboard extends React.Component {
     console.log(users);
   }
 
+  // getGroupName = () => {
+  //   debugger
+  //   return this.props.groups.filter(group => this.state.groupId === group.id)
+  // }
+
   render() {
     return (
       <div>

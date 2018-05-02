@@ -1,8 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import '../App.css'
 import { signInUser, signUpUser } from '../actions/user'
-// import { Form, Divider, Header, Container } from 'semantic-ui-react'
-import TextField from 'material-ui/TextField';
+import { Form, Icon, Input, Button, Checkbox, Layout, Card } from 'antd';
+
+
+const { Header, Footer, Sider, Content } = Layout;
+const FormItem = Form.Item;
+
 
 class LoginSignupForm extends React.Component {
 
@@ -13,12 +18,19 @@ class LoginSignupForm extends React.Component {
     password: '',
     reEnterPassword: '',
     newUsername: '',
-    newPassword: ''
+    newPassword: '',
+    // signUpClick: false
   }
 
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
+    })
+  }
+
+  handleSignUpClick = () => {
+    this.setState({
+      signUpClick: true
     })
   }
 
@@ -50,40 +62,60 @@ class LoginSignupForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Welcome to Planner</h1>
+      <div id= 'login-signup-form'>
+      <Layout>
+        <Header>
+          <marquee><h1 style={{color: 'white'}}>Welcome to Planner</h1></marquee>
+        </Header>
+        <Content>
+          <div id='login-form'>
+          <Card title='Log In!' style={{ width: 300 }} className='signin-form'>
+          <form onSubmit={this.handleLoginSubmit} className="login-form">
+            <FormItem>
+              <label>Username: </label>
+              <p><Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type='text' name='username' value={this.state.username} onChange={(event) => this.handleChange(event)}/></p>
+            </FormItem>
+            <FormItem>
+              <label>Password: </label>
+              <p><Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type='password' name='password' value={this.state.password} onChange={(event) => this.handleChange(event)}/></p>
+            </FormItem>
+            <Input type='submit'/>
+          </form>
+          </Card>
+          </div>
+          {/*<Button onClick={() => this.handleSignUpClick()}>Create An Account!</Button>*/}
 
-        <h3>Log In!</h3>
-        <form onSubmit={this.handleLoginSubmit}>
-          <label>Username: </label>
-          <input type='text' name='username' value={this.state.username} onChange={(event) => this.handleChange(event)}/>
 
-          <label>Password: </label>
-          <input type='password' name='password' value={this.state.password} onChange={(event) => this.handleChange(event)}/>
+          <div id='signup-form'>
+          <Card title='Sign Up!' style={{ width: 300 }} className='signin-form'>
+          <form onSubmit={this.handleSignUpSubmit}>
+            <label>Username: </label>
+            <p><Input type='text' name='newUsername' value={this.state.newUsername} onChange={(event) => this.handleChange(event)}/></p>
 
-          <input type='submit'/>
-        </form>
+            <label>First Name: </label>
+            <p><Input type='text' name='firstName' value={this.state.firstName} onChange={(event) => this.handleChange(event)}/></p>
 
-        <h3>Sign Up!</h3>
-        <form onSubmit={this.handleSignUpSubmit}>
-          <label>Username: </label>
-          <input type='text' name='newUsername' value={this.state.newUsername} onChange={(event) => this.handleChange(event)}/>
+            <label>Last Name: </label>
+            <p><Input type='text' name='lastName' value={this.state.lastName} onChange={(event) => this.handleChange(event)}/></p>
 
-          <label>First Name: </label>
-          <input type='text' name='firstName' value={this.state.firstName} onChange={(event) => this.handleChange(event)}/>
+            <label>Password: </label>
+            <p><Input type='password' name='newPassword' value={this.state.newPassword} onChange={(event) => this.handleChange(event)}/></p>
 
-          <label>Last Name: </label>
-          <input type='text' name='lastName' value={this.state.lastName} onChange={(event) => this.handleChange(event)}/>
+            <label>Re-Enter Password: </label>
+            <p><Input type='password' name='reEnterPassword' value={this.state.reEnterPassword} onChange={(event) => this.handleChange(event)}/></p>
 
-          <label>Password: </label>
-          <input type='password' name='newPassword' value={this.state.newPassword} onChange={(event) => this.handleChange(event)}/>
+            <Input type='submit'/>
+          </form>
+          </Card>
+          </div>
 
-          <label>Re-Enter Password: </label>
-          <input type='password' name='reEnterPassword' value={this.state.reEnterPassword} onChange={(event) => this.handleChange(event)}/>
-
-          <input type='submit'/>
-        </form>
+        </Content>
+        <Footer>
+          <p>Created by <a href='https://www.linkedin.com/in/scottburack/' target="_blank">Scott Burack</a></p>
+        </Footer>
+      </Layout>
       </div>
+
     )
   }
 }

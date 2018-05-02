@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css'
 import LoginSignupForm from './components/LoginSignupForm'
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -6,6 +7,7 @@ import { getCurrentUser, logOutUser, loginUser } from './actions/user'
 import authorize from './authorize'
 import UserDashboard from './containers/UserDashboard'
 import GroupDashboard from './containers/GroupDashboard'
+
 
 
 class App extends Component {

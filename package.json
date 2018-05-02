@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "material-ui": "^0.20.0",
+    "antd": "^3.4.4",
     "react": "^16.3.2",
     "react-big-calendar": "^0.19.0",
     "react-dom": "^16.3.2",
@@ -18,5 +18,18 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": true
+      }
+    ]
+  ],
+  "devDependencies": {
+    "babel-plugin-import": "^1.7.0"
   }
 }
