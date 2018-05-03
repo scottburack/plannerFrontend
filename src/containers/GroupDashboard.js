@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import AddEventForm from '../components/AddEventForm'
 import Event from '../components/Event'
+import AddYelpEventForm from '../components/AddYelpEventForm'
 import { getCurrentUser } from '../actions/user'
 import * as actions from '../actions/group'
 import AddFriendSearchBar from '../components/AddFriendSearchBar'
@@ -17,11 +18,11 @@ class GroupDashboard extends React.Component {
   state = {
     addEventButtonClicked: false,
     addFriendButtonClicked: false,
+    searchYelpClick: false,
     groupId: parseInt(this.props.pathname.split('/')[2]),
     friendSearch: '',
     queryFriends: [],
-    eventsToShow: [],
-    modalConfirmLoading: false
+    eventsToShow: []
   }
 
   componentDidMount = () => {
@@ -37,7 +38,7 @@ class GroupDashboard extends React.Component {
   handleClick = (event) => {
     this.setState({
       [event.target.name]: true
-    })
+    },console.log(event.target.name))
   }
 
   onBackButtonEvent = () => {
@@ -59,27 +60,29 @@ class GroupDashboard extends React.Component {
 
   handleOk = () => {
     alert("Please click 'Add Event' to add or 'Cancel' to exit.")
-    // this.setState({
-    //   ModalText: 'Adding Event...',
-    //   confirmLoading: true,
-    // });
-    // setTimeout(() => {
-    //   this.setState({
-    //     addEventButtonClicked: false,
-    //     confirmLoading: false,
-    //   });
-    // }, 2000);
   }
 
-  handleCancel = () => {
+  handleCancel = (event) => {
     this.setState({
       addEventButtonClicked: false,
     });
   }
 
-  renderFriends = () => {
-    // debugger
+  handleYelpCancel = (event) => {
+    console.log(event.target);
+    this.setState({
+      searchYelpClick: false,
+    });
+  }
 
+  handleSearchYelpClick = () => {
+    this.setState({
+      searchYelpClick: true
+    })
+  }
+
+
+  renderFriends = () => {
     return this.props.friends.map(friend => {
       return <li className='friends-list'>{friend.username}</li>
     })
@@ -139,12 +142,18 @@ class GroupDashboard extends React.Component {
               <Modal title="What's the plan?"
                 visible={this.state.addEventButtonClicked}
                 onOk={this.handleOk}
-                confirmLoading={this.state.modalConfirmLoading}
                 onCancel={this.handleCancel}
               >
                 <AddEventForm groupId={this.state.groupId}/>
               </Modal>
-
+              <Button name='searchYelpClick' onClick={this.handleClick}>Find Somewhere To Go!</Button>
+              <Modal title="What's the plan?"
+                visible={this.state.searchYelpClick}
+                onOk={this.handleOk}
+                onCancel={this.handleYelpCancel}
+              >
+              <AddYelpEventForm/>
+              </Modal>
               <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
             </Content>
             </Layout>

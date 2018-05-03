@@ -55,3 +55,24 @@ export function getVotes(eventVotes) {
     payload: eventVotes
   }
 }
+
+export function passYelpFormValues(city, state, country, radioValue, locationName) {
+  return dispatch => {
+    fetch('http://localhost:3000/api/v1/events/fetch_from_yelp', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        city: city,
+        state: state,
+        country: country,
+        radio_value: radioValue,
+        location_name: locationName
+      })
+    })
+    .then(response => response.json())
+    .then(yelpResults => console.log(yelpResults))
+  }
+}
