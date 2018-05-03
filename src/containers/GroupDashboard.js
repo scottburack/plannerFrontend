@@ -9,6 +9,8 @@ import * as actions from '../actions/group'
 import AddFriendSearchBar from '../components/AddFriendSearchBar'
 import Friend from '../components/Friend'
 import GroupCalendar from '../components/GroupCalendar'
+import { Layout } from 'antd';
+const { Header, Footer, Sider, Content } = Layout;
 
 class GroupDashboard extends React.Component {
 
@@ -63,7 +65,7 @@ class GroupDashboard extends React.Component {
     // debugger
 
     return this.props.friends.map(friend => {
-      return <li>{friend.username}</li>
+      return <li className='friends-list'>{friend.username}</li>
     })
   }
 
@@ -88,32 +90,41 @@ class GroupDashboard extends React.Component {
     console.log(users);
   }
 
-  // getGroupName = () => {
-  //   debugger
-  //   return this.props.groups.filter(group => this.state.groupId === group.id)
-  // }
+  getGroupName = () => {
+    let foundGroup = this.props.groups.find(group => this.state.groupId === group.id)
+    return foundGroup.name
+  }
 
   render() {
+
     return (
-      <div>
-        <h1>Group Dashboard</h1>
-        <h3>Friends!</h3>
-        <ul>
-          { this.props.friends.length > 0 ? this.renderFriends() : null}
-        </ul>
+      <div id='group-dashboard'>
+        <Layout>
+          <Header>
+            <h1 style={{color:'white'}}>{this.props.groups.length > 0 ? this.getGroupName() : null}</h1>
+          </Header>
+          <Layout>
+            <Sider>
+              <h3 style={{color:'white'}}>Friends!</h3>
+              <ul>
+                { this.props.friends.length > 0 ? this.renderFriends() : null}
+              </ul>
+              {this.state.addFriendButtonClicked ? <AddFriendSearchBar friendSearch={this.state.friendSearch} handleChange={this.handleFriendSearchChange} /> : null}
+              {this.state.addFriendButtonClicked && this.state.friendSearch !== '' ? this.renderForFriendSearch() : null}
+              <button name='addFriendButtonClicked' onClick={this.handleClick}>Add Friend!</button>
+            </Sider>
+            <Content>
+              <h2>Events!</h2>
+              <ul>
+                { this.props.events ? this.renderEvents() : null }
+              </ul>
+              {this.state.addEventButtonClicked ? <AddEventForm groupId={this.state.groupId}/> : null}
+              <button name='addEventButtonClicked' onClick={this.handleClick}>Add Event!</button>
 
-        {this.state.addFriendButtonClicked ? <AddFriendSearchBar friendSearch={this.state.friendSearch} handleChange={this.handleFriendSearchChange} /> : null}
-        {this.state.addFriendButtonClicked && this.state.friendSearch !== '' ? this.renderForFriendSearch() : null}
-        <button name='addFriendButtonClicked' onClick={this.handleClick}>Add Friend!</button>
-
-        <h3>Events!</h3>
-        <ul>
-          { this.props.events ? this.renderEvents() : null }
-        </ul>
-        {this.state.addEventButtonClicked ? <AddEventForm groupId={this.state.groupId}/> : null}
-        <button name='addEventButtonClicked' onClick={this.handleClick}>Add Event!</button>
-
-        <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
+              <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
+            </Content>
+            </Layout>
+          </Layout>
       </div>
     )
   }

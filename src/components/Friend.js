@@ -4,7 +4,7 @@ const Friend = (props) => {
 
   return (
 
-    <a href="#" onClick={(e) => {props.handleAddFriendClick(props.friend.id, e)}}><br/>{props.friend.username}</a>
+    <a href="#" onClick={(e) => {props.handleAddFriendClick(props.friend.id, e)}}>{props.friend.username}<br/></a>
   )
 }
 

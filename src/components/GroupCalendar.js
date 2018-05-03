@@ -22,9 +22,10 @@ class GroupCalendar extends React.Component {
   componentDidMount = () => {
     let now = new Date(Date.now())
     let today = Moment(now, "MM-DD-YYYY").format().split('T')[0]
-    let events = this.props.events.filter(event => {
-      return event.group_id === this.props.groupId && today <= event.date_end
-    })
+    if (this.props.events) {
+      let events = this.props.events.filter(event => {
+        return event.group_id === this.props.groupId && today <= event.date_end
+      })
     // let eventsToBeRendered = []
     // let endDates = []
     //
@@ -36,7 +37,8 @@ class GroupCalendar extends React.Component {
     //   return a.votes > b.votes
     // })
     // console.log(eventsToBeRendered);
-    this.setState({events: events})
+      this.setState({events: events})
+    }
   }
 
   renderEvents = () => {
@@ -45,7 +47,7 @@ class GroupCalendar extends React.Component {
       return {
         end: Moment(event.date_end).toDate(),
         start: Moment(event.date_start).toDate(),
-        title: event.name + " Votes: " + event.votes ,
+        title: event.name + " Votes: " + event.votes,
         votes: event.votes
       }
     })
@@ -58,7 +60,7 @@ class GroupCalendar extends React.Component {
   render() {
 
     return (
-      <div style={ {height: '50vh', margin: '10px'}}>
+      <div style={ {height: '50vh', width: '100vh', margin: '10px'}}>
         <BigCalendar
           events= {this.renderEvents()}
           onSelectEvent= {(e) => this.showVotes(e)}

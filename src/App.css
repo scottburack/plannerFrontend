@@ -8,6 +8,10 @@
   height: 100%;
 }
 
+#group-dashboard {
+  height: 100%;
+}
+
 .ant-layout {
   height: 100%;
 }
@@ -33,5 +37,10 @@
 
 #groups-label {
   margin-left: 15%;
+  color: white;
+}
+
+.friends-list {
+  list-style-type: none;
   color: white;
 }
