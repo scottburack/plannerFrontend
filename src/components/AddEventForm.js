@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addEvent } from '../actions/event'
+import {Input, Form} from 'antd'
 
 class AddEventForm extends React.Component {
 
@@ -44,20 +45,20 @@ class AddEventForm extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit}>
           <label>Event Name: </label>
-          <input type='text' name='name' value={this.state.name} onChange={(event) => this.handleChange(event)} />
+          <Input required type='text' name='name' value={this.state.name} onChange={(event) => this.handleChange(event)} />
           <label>Start Date: </label>
-          <input type='date' name='dateStart' value={this.state.dateStart} onChange={(event) => this.handleChange(event)} />
+          <Input required type='date' name='dateStart' value={this.state.dateStart} onChange={(event) => this.handleChange(event)} />
           <label>End Date: </label>
-          <input type='date' name='dateEnd' value={this.state.dateEnd} onChange={(event) => this.handleChange(event)} />
+          <Input required type='date' name='dateEnd' value={this.state.dateEnd} onChange={(event) => this.handleChange(event)} />
           <label>Start Time: </label>
-          <input type='time' name='timeStart' value={this.state.timeStart} onChange={(event) => this.handleChange(event)} />
+          <Input required type='time' name='timeStart' value={this.state.timeStart} onChange={(event) => this.handleChange(event)} />
           <label>End Time: </label>
-          <input type='time' name='timeEnd' value={this.state.timeEnd} onChange={(event) => this.handleChange(event)} />
-
-          <input type='submit' value='Add Event'/>
-        </form>
+          <Input required type='time' name='timeEnd' value={this.state.timeEnd} onChange={(event) => this.handleChange(event)} />
+          <br/>
+          <Input type='submit' value='Add Event'/>
+        </Form>
       </div>
     )
   }

@@ -9,7 +9,7 @@ import * as actions from '../actions/group'
 import AddFriendSearchBar from '../components/AddFriendSearchBar'
 import Friend from '../components/Friend'
 import GroupCalendar from '../components/GroupCalendar'
-import { Layout } from 'antd';
+import { Layout, Modal, Button } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 class GroupDashboard extends React.Component {
@@ -20,7 +20,8 @@ class GroupDashboard extends React.Component {
     groupId: parseInt(this.props.pathname.split('/')[2]),
     friendSearch: '',
     queryFriends: [],
-    eventsToShow: []
+    eventsToShow: [],
+    modalConfirmLoading: false
   }
 
   componentDidMount = () => {
@@ -51,14 +52,29 @@ class GroupDashboard extends React.Component {
       return event.group_id === this.state.groupId && today <= event.date_end
     })
 
-    // let calendarEventObjs = []
-    // this.setState({eventsToShow: events})
-
     return events.map(event => {
-      // calendarEventObjs.push({startDate: event.date_start, endDate: event.date_end})
       return <Event key={event.id} event={event} />
     })
+  }
 
+  handleOk = () => {
+    alert("Please click 'Add Event' to add or 'Cancel' to exit.")
+    // this.setState({
+    //   ModalText: 'Adding Event...',
+    //   confirmLoading: true,
+    // });
+    // setTimeout(() => {
+    //   this.setState({
+    //     addEventButtonClicked: false,
+    //     confirmLoading: false,
+    //   });
+    // }, 2000);
+  }
+
+  handleCancel = () => {
+    this.setState({
+      addEventButtonClicked: false,
+    });
   }
 
   renderFriends = () => {
@@ -118,8 +134,16 @@ class GroupDashboard extends React.Component {
               <ul>
                 { this.props.events ? this.renderEvents() : null }
               </ul>
-              {this.state.addEventButtonClicked ? <AddEventForm groupId={this.state.groupId}/> : null}
-              <button name='addEventButtonClicked' onClick={this.handleClick}>Add Event!</button>
+
+              <Button name='addEventButtonClicked' onClick={this.handleClick}>Add Event!</Button>
+              <Modal title="What's the plan?"
+                visible={this.state.addEventButtonClicked}
+                onOk={this.handleOk}
+                confirmLoading={this.state.modalConfirmLoading}
+                onCancel={this.handleCancel}
+              >
+                <AddEventForm groupId={this.state.groupId}/>
+              </Modal>
 
               <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
             </Content>
