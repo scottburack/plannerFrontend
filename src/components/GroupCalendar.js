@@ -43,18 +43,37 @@ class GroupCalendar extends React.Component {
 
   renderEvents = () => {
     return this.state.events.map(event => {
-      console.log(Moment(event.date_end).toDate());
       return {
         end: Moment(event.date_end).toDate(),
         start: Moment(event.date_start).toDate(),
-        title: event.name + " Votes: " + event.votes,
-        votes: event.votes
+        title: event.name,
+        votes: event.votes,
+        timeStart: event.time_start,
+        timeEnd: event.time_end
       }
     })
   }
 
-  showVotes = (event) => {
-    console.log(event);
+  parseTime = (dateTime) => {
+    let newDate = new Date(dateTime)
+    // debugger
+    let getHours
+    if (newDate.getUTCHours() > 12) {
+      getHours = newDate.getUTCHours() - 12
+    } else if (newDate.getUTCHours() === 0) {
+      getHours = newDate.getUTCHours() + 12
+    } else {
+      getHours = newDate.getUTCHours()
+    }
+    let getMinutes = String(newDate.getUTCMinutes())
+    getMinutes === '0' ? getMinutes += '0' : getMinutes
+    let newTime = getHours + ':' + getMinutes
+    newDate.getUTCHours() >= 12 ? newTime += ' PM' : newTime += ' AM'
+    return newTime
+  }
+
+  handleEventCalenderClick = (event) => {
+    alert(`${this.parseTime(event.timeStart)} - ${this.parseTime(event.timeEnd)} \n Votes: ${event.votes}`)
   }
 
   render() {
@@ -63,7 +82,7 @@ class GroupCalendar extends React.Component {
       <div style={ {height: '50vh', width: '100vh', margin: '10px'}}>
         <BigCalendar
           events= {this.renderEvents()}
-          onSelectEvent= {(e) => this.showVotes(e)}
+          onSelectEvent= {(e) => this.handleEventCalenderClick(e)}
           // start='start_date'
           // end='end_date'
         />
