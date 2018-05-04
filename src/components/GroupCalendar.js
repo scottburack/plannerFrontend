@@ -2,6 +2,7 @@ import React from 'react'
 import Moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import { connect } from 'react-redux'
+import { parseTime } from '../commonFunctions'
 require('react-big-calendar/lib/css/react-big-calendar.css')
 require('../index.css')
 

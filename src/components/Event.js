@@ -14,22 +14,28 @@ class Event extends React.Component {
     super(props)
 
     this.state = {
-      votes: this.props.event.votes
+      votes: this.props.event.votes,
+      userUpvote: this.props.event.votes + 1,
+      userDownvote: this.props.event.votes - 1
     }
   }
 
   handleUpvote = (event) => {
     event.preventDefault()
-    this.setState({
-      votes: this.state.votes + 1
-    }, () => actions.handleEventVoting(this.state.votes, this.props.event.id))
+    if (this.state.userUpvote !== this.state.votes) {
+      this.setState({
+        votes: this.state.votes + 1
+      }, () => actions.handleEventVoting(this.state.votes, this.props.event.id))
+    }
   }
 
   handleDownvote = (event) => {
     event.preventDefault()
-    this.setState({
-      votes: this.state.votes - 1
-    }, () => actions.handleEventVoting(this.state.votes, this.props.event.id))
+    if (this.state.userDownvote !== this.state.votes) {
+      this.setState({
+        votes: this.state.votes - 1
+      }, () => actions.handleEventVoting(this.state.votes, this.props.event.id))
+    }
   }
 
 
