@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import AddEventForm from '../components/AddEventForm'
 import Event from '../components/Event'
 import AddYelpEventForm from '../components/AddYelpEventForm'
+import YelpSearchResults from '../components/YelpSearchResults'
 import { getCurrentUser } from '../actions/user'
 import * as actions from '../actions/group'
 import AddFriendSearchBar from '../components/AddFriendSearchBar'
@@ -19,10 +20,10 @@ class GroupDashboard extends React.Component {
     addEventButtonClicked: false,
     addFriendButtonClicked: false,
     searchYelpClick: false,
+    yelpFormSubmitted: false,
     groupId: parseInt(this.props.pathname.split('/')[2]),
     friendSearch: '',
-    queryFriends: [],
-    eventsToShow: []
+    queryFriends: []
   }
 
   componentDidMount = () => {
@@ -30,6 +31,12 @@ class GroupDashboard extends React.Component {
     if (this.props.friends.length === 0) {
       console.log('In group mount');
       this.props.actions.getFriends(this.state.groupId);
+    }
+
+    if (this.props.yelpResults.length > 0) {
+      this.setState({
+        yelpFormSubmitted: true
+      })
     }
     window.onpopstate = this.onBackButtonEvent;
     fetch("http://localhost:3000/api/v1/users").then(resp => resp.json()).then(json => this.setState({queryFriends: json}))
@@ -63,24 +70,37 @@ class GroupDashboard extends React.Component {
   }
 
   handleCancel = (event) => {
+    // event.preventDefault()
     this.setState({
       addEventButtonClicked: false,
     });
   }
 
-  handleYelpCancel = (event) => {
-    console.log(event.target);
+  handleYelpCancel = () => {
     this.setState({
       searchYelpClick: false,
     });
   }
 
-  handleSearchYelpClick = () => {
+  // handleSearchYelpClick = () => {
+  //   this.setState({
+  //     searchYelpClick: true
+  //   })
+  // }
+
+  yelpFormSubmitted = (event) => {
+    event.preventDefault()
     this.setState({
-      searchYelpClick: true
+      yelpFormSubmitted: true
     })
+
   }
 
+  handleYelpResultsCancel = () => {
+    this.setState({
+      yelpFormSubmitted: false
+    })
+  }
 
   renderFriends = () => {
     return this.props.friends.map(friend => {
@@ -106,7 +126,6 @@ class GroupDashboard extends React.Component {
   handleAddFriendClick = (userId, e) => {
     e.preventDefault()
     let users = this.props.actions.addUserToGroup(this.state.groupId, userId)
-    console.log(users);
   }
 
   getGroupName = () => {
@@ -115,7 +134,8 @@ class GroupDashboard extends React.Component {
   }
 
   render() {
-
+    console.log(this.props);
+    console.log(this.props.yelpResults);
     return (
       <div id='group-dashboard'>
         <Layout>
@@ -146,14 +166,25 @@ class GroupDashboard extends React.Component {
               >
                 <AddEventForm groupId={this.state.groupId}/>
               </Modal>
+
               <Button name='searchYelpClick' onClick={this.handleClick}>Find Somewhere To Go!</Button>
               <Modal title="What's the plan?"
                 visible={this.state.searchYelpClick}
                 onOk={this.handleOk}
                 onCancel={this.handleYelpCancel}
               >
-              <AddYelpEventForm/>
+              <AddYelpEventForm handleYelpCancel={this.handleYelpCancel} yelpFormSubmitted={this.yelpFormSubmitted} />
               </Modal>
+
+              <Modal title="Search Results ..."
+                visible={this.state.yelpFormSubmitted}
+                onOk={this.handleOk}
+                onCancel={this.handleYelpResultsCancel}
+                width= '75%'
+              >
+              <YelpSearchResults />
+              </Modal>
+
               <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
             </Content>
             </Layout>

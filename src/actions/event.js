@@ -73,6 +73,13 @@ export function passYelpFormValues(city, state, country, radioValue, locationNam
       })
     })
     .then(response => response.json())
-    .then(yelpResults => console.log(yelpResults))
+    .then(yelpResults => dispatch(setYelpResults(yelpResults)))
+  }
+}
+
+export function setYelpResults(yelpResults) {
+  return {
+    type: 'YELP_RESULTS',
+    payload: yelpResults
   }
 }

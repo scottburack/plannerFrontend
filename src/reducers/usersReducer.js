@@ -1,5 +1,5 @@
 export default function usersReducer(
-  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [], friends: [], groupUsers: [] },
+  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [], friends: [], groupUsers: [], yelpResults: []  },
   action
 ) {
   switch (action.type) {
@@ -39,6 +39,9 @@ export default function usersReducer(
       return action.payload.votes
     case "RESET_FRIENDS":
       return {...state, friends: []}
+    case "YELP_RESULTS":
+    console.log(action.payload.businesses);
+      return {...state, yelpResults: action.payload.businesses}
     default:
       return state;
   }

@@ -29,57 +29,65 @@ class AddYelpEventForm extends React.Component {
   }
 
   handleRadioChange = (event) => {
-    console.log('radio checked', event.target.value);
     this.setState({
       radioValue: event.target.value,
     });
   }
 
   handleYelpSubmit = (event) => {
-    event.preventDefault()
-    console.log(this.state);
-    this.props.passYelpFormValues(
+    // event.preventDefault()
+    console.log('hit submit form');
+    let yelpResults = this.props.passYelpFormValues(
       this.state.city,
       this.state.state,
       this.state.country,
       this.state.radioValue,
       this.state.locationName
     )
-    this.setState({
-      city: '',
-      state: '',
-      country: '',
-      radioValue: '',
-      locationName: ''
-    })
+
+    // setTimeout(() => {
+    //   this.props.yelpFormSubmitted()
+    //   // this.props.handleYelpCancel()
+    // }, 2000)
+
+    // this.props.handleYelpCancel()
+    // this.props.yelpFormSubmitted()
+
+
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault()
-    this.props.addEvent(
-      this.props.groupId,
-      this.state.name,
-      this.state.dateStart,
-      this.state.dateEnd,
-      this.state.timeStart,
-      this.state.timeEnd,
-      this.state.votes,
-      this.eventUrl
-    )
-    this.setState({
-      name: '',
-      dateStart: '',
-      dateEnd: '',
-      timeStart: '',
-      timeEnd: '',
-      eventUrl: ''
-    })
+  handleOnCLick = (event) => {
+    this.props.handleYelpCancel(event)
+    this.handleYelpSubmit(event)
+    this.props.yelpFormSubmitted(event)
   }
+
+  // handleSubmit = (event) => {
+  //   event.preventDefault()
+  //   this.props.addEvent(
+  //     this.props.groupId,
+  //     this.state.name,
+  //     this.state.dateStart,
+  //     this.state.dateEnd,
+  //     this.state.timeStart,
+  //     this.state.timeEnd,
+  //     this.state.votes,
+  //     this.eventUrl
+  //   )
+  //   this.setState({
+  //     name: '',
+  //     dateStart: '',
+  //     dateEnd: '',
+  //     timeStart: '',
+  //     timeEnd: '',
+  //     eventUrl: ''
+  //   })
+  // }
 
 
 
   render() {
-    console.log(this.state);
+
     return (
       <div>
         <Form onSubmit={this.handleYelpSubmit}>
@@ -107,7 +115,7 @@ class AddYelpEventForm extends React.Component {
           <label>Know the name? </label>
           <Input onChange={this.handleChange} type='text' name="locationName" value={this.state.locationName} />
         <br></br>
-            <Input type="submit" value="Lets Go!" />
+            <Input type="submit" value="Lets Go!" onClick={(event) => this.handleOnCLick(event)} />
         </Form>
       </div>
     )
