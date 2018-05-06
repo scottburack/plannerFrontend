@@ -1,9 +1,11 @@
 import React from 'react'
 import Moment from 'moment'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import AddEventForm from '../components/AddEventForm'
 import Event from '../components/Event'
+import UserDashboard from './UserDashboard'
 import AddYelpEventForm from '../components/AddYelpEventForm'
 import YelpSearchResults from '../components/YelpSearchResults'
 import { getCurrentUser } from '../actions/user'
@@ -50,6 +52,7 @@ class GroupDashboard extends React.Component {
 
   onBackButtonEvent = () => {
     this.props.actions.resetFriends()
+    this.props.actions.resetYelpResults()
   }
 
   renderEvents = () => {
@@ -96,7 +99,9 @@ class GroupDashboard extends React.Component {
 
   }
 
-  handleYelpResultsCancel = () => {
+  handleYelpResultsCancel = (event) => {
+    event.preventDefault()
+    debugger
     this.setState({
       yelpFormSubmitted: false
     })
@@ -133,14 +138,19 @@ class GroupDashboard extends React.Component {
     return foundGroup.name
   }
 
+  renderUserDashboard = () => {
+    return
+  }
+
   render() {
     console.log(this.props);
-    console.log(this.props.yelpResults);
+    console.log(this.state.yelpFormSubmitted)
     return (
       <div id='group-dashboard'>
         <Layout>
           <Header>
-            <h1 style={{color:'white'}}>{this.props.groups.length > 0 ? this.getGroupName() : null}</h1>
+            <h1 style={{color:'white', float: 'left'}}>{this.props.groups.length > 0 ? this.getGroupName() : null}</h1>
+            <Link to={'/userdashboard/'} style={{color:'white', float: 'right'}}>Home</Link>
           </Header>
           <Layout>
             <Sider>
@@ -164,7 +174,7 @@ class GroupDashboard extends React.Component {
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
               >
-                <AddEventForm groupId={this.state.groupId}/>
+                <AddEventForm groupId={this.state.groupId} clickedEvent={this.handleYelpResultsCancel}/>
               </Modal>
 
               <Button name='searchYelpClick' onClick={this.handleClick}>Find Somewhere To Go!</Button>
@@ -182,7 +192,8 @@ class GroupDashboard extends React.Component {
                 onCancel={this.handleYelpResultsCancel}
                 width= '75%'
               >
-              <YelpSearchResults />
+                <YelpSearchResults clickedEvent={this.handleYelpResultsCancel} showAddEventForm={this.handleClick}/>
+
               </Modal>
 
               <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>

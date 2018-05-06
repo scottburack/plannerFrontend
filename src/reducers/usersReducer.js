@@ -40,8 +40,9 @@ export default function usersReducer(
     case "RESET_FRIENDS":
       return {...state, friends: []}
     case "YELP_RESULTS":
-    console.log(action.payload.businesses);
       return {...state, yelpResults: action.payload.businesses}
+    case 'RESET_YELP_RESULTS':
+      return {...state, yelpResults: []}
     default:
       return state;
   }

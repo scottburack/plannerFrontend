@@ -8,13 +8,6 @@ const RadioGroup = Radio.Group;
 class AddYelpEventForm extends React.Component {
 
   state = {
-    name: '',
-    dateStart: '',
-    dateEnd: '',
-    timeStart: '',
-    timeEnd: '',
-    votes: 0,
-    eventUrl: '',
     radioValue: '',
     city: '',
     state: '',
@@ -45,13 +38,13 @@ class AddYelpEventForm extends React.Component {
       this.state.locationName
     )
 
-    // setTimeout(() => {
-    //   this.props.yelpFormSubmitted()
-    //   // this.props.handleYelpCancel()
-    // }, 2000)
-
-    // this.props.handleYelpCancel()
-    // this.props.yelpFormSubmitted()
+    this.setState({
+      radioValue: '',
+      city: '',
+      state: '',
+      country: '',
+      locationName: ''
+    })
 
 
   }

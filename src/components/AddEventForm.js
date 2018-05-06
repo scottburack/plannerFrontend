@@ -38,6 +38,8 @@ class AddEventForm extends React.Component {
       timeStart: '',
       timeEnd: ''
     })
+
+    this.props.clickedEvent(event)
   }
 
 

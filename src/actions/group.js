@@ -63,3 +63,8 @@ export function resetFriends() {
   return dispatch =>
   dispatch({type: 'RESET_FRIENDS'})
 }
+
+export function resetYelpResults() {
+  return dispatch =>
+  dispatch({type: 'RESET_YELP_RESULTS'})
+}
