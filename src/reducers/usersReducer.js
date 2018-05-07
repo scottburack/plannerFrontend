@@ -1,5 +1,5 @@
 export default function usersReducer(
-  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [], friends: [], groupUsers: [], yelpResults: []  },
+  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [], friends: [], groupUsers: [], yelpResults: [], groupMessages: []  },
   action
 ) {
   switch (action.type) {
@@ -43,6 +43,13 @@ export default function usersReducer(
       return {...state, yelpResults: action.payload.businesses}
     case 'RESET_YELP_RESULTS':
       return {...state, yelpResults: []}
+    case 'GET_GROUP_MESSAGES':
+      return {...state, groupMessages: action.payload}
+    case 'ADD_GROUP_MESSAGE':
+      state.groupMessages.push(action.payload)
+      return {...state, groupMessages: state.groupMessages}
+    case 'RESET_GROUP_MESSAGES':
+      return {...state, groupMessages: []}
     default:
       return state;
   }

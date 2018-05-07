@@ -3,7 +3,8 @@ import Moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import ChatRoom from '../components/ChatRoom'
+// import ChatRoom from '../components/ChatRoom'
+import GroupMessages from '../components/GroupMessages'
 import AddEventForm from '../components/AddEventForm'
 import Event from '../components/Event'
 import UserDashboard from './UserDashboard'
@@ -41,6 +42,10 @@ class GroupDashboard extends React.Component {
         yelpFormSubmitted: true
       })
     }
+
+    this.props.groupMessages.length === 0 ? this.props.actions.getGroupMessages(this.state.groupId) : null
+
+
     window.onpopstate = this.onBackButtonEvent;
     fetch("http://localhost:3000/api/v1/users").then(resp => resp.json()).then(json => this.setState({queryFriends: json}))
   }
@@ -54,6 +59,7 @@ class GroupDashboard extends React.Component {
   onBackButtonEvent = () => {
     this.props.actions.resetFriends()
     this.props.actions.resetYelpResults()
+    this.props.actions.resetGroupMessages()
   }
 
   renderEvents = () => {
@@ -141,13 +147,13 @@ class GroupDashboard extends React.Component {
 
   render() {
     console.log(this.props);
-    console.log(this.state.yelpFormSubmitted)
+    
     return (
       <div id='group-dashboard'>
         <Layout>
           <Header>
             <h1 style={{color:'white', float: 'left'}}>{this.props.groups.length > 0 ? this.getGroupName() : null}</h1>
-            <Link to={'/userdashboard/'} style={{color:'white', float: 'right'}}>Home</Link>
+            <Link to={'/userdashboard/'} onClick={() => this.onBackButtonEvent()} style={{color:'white', float: 'right'}}>Home</Link>
           </Header>
           <Layout>
             <Sider>
@@ -195,7 +201,8 @@ class GroupDashboard extends React.Component {
 
               <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
 
-              <ChatRoom />
+              <GroupMessages groupId={this.state.groupId}/>
+
             </Content>
             </Layout>
           </Layout>

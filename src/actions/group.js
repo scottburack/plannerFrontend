@@ -68,3 +68,47 @@ export function resetYelpResults() {
   return dispatch =>
   dispatch({type: 'RESET_YELP_RESULTS'})
 }
+
+export function resetGroupMessages() {
+  return dispatch =>
+  dispatch({type: 'RESET_GROUP_MESSAGES'})
+}
+
+export function addMessageToGroupMessages(content, groupId, senderUsername) {
+  return dispatch => {
+    fetch('http://localhost:3000/api/v1/group_messages', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        group_message: {
+          content: content,
+          group_id: groupId,
+          sender_username: senderUsername
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(message => dispatch(addGroupMessage(message)))
+  }
+}
+
+export function addGroupMessage(message) {
+  return {
+    type: "ADD_GROUP_MESSAGE",
+    payload: message
+  }
+}
+
+export function getGroupMessages(groupId) {
+  return dispatch => {
+    return fetch(`http://localhost:3000/api/v1/get_messages/${groupId}`)
+    .then(resp => resp.json())
+    .then(msgs => {
+      dispatch({type: 'GET_GROUP_MESSAGES', payload: msgs})
+    }
+    )
+  }
+}
