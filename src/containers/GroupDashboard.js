@@ -3,6 +3,7 @@ import Moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import ChatRoom from '../components/ChatRoom'
 import AddEventForm from '../components/AddEventForm'
 import Event from '../components/Event'
 import UserDashboard from './UserDashboard'
@@ -101,7 +102,6 @@ class GroupDashboard extends React.Component {
 
   handleYelpResultsCancel = (event) => {
     event.preventDefault()
-    debugger
     this.setState({
       yelpFormSubmitted: false
     })
@@ -138,9 +138,6 @@ class GroupDashboard extends React.Component {
     return foundGroup.name
   }
 
-  renderUserDashboard = () => {
-    return
-  }
 
   render() {
     console.log(this.props);
@@ -197,6 +194,8 @@ class GroupDashboard extends React.Component {
               </Modal>
 
               <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
+
+              <ChatRoom />
             </Content>
             </Layout>
           </Layout>
