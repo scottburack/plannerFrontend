@@ -7,6 +7,7 @@ import AddGroupForm from '../components/AddGroupForm'
 import Group from '../components/Group'
 import Journal from '../components/Journal'
 import UserCalendar from '../components/UserCalendar'
+import UserConversations from '../components/UserConversations'
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -44,6 +45,7 @@ class UserDashboard extends React.Component {
             <h3>Journal</h3>
             <Journal />
             <UserCalendar />
+            <UserConversations />
           </Content>
         </Layout>
         </Layout>

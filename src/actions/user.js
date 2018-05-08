@@ -103,3 +103,38 @@ export function getUsers() {
     .then(users => dispatch(setUsers(users)))
   }
 }
+
+export function getAllUsers() {
+  return dispatch => {
+    fetch('http://localhost:3000/api/v1/users')
+    .then(response => response.json())
+    .then(users => dispatch(setUsers(users)))
+  }
+}
+
+export function addConversation(senderId, recieverId) {
+  return dispatch => {
+    fetch("http://localhost:3000/api/v1/conversations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        sender_id: senderId,
+        recipient_id: recieverId
+      })
+    })
+      .then(response => response.json())
+      .then(convo => {
+        dispatch(addToConversations(convo));
+      });
+  };
+}
+
+export function addToConversations(convo) {
+  return {
+    type: "ADD_CONVO",
+    payload: convo
+  }
+}

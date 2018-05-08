@@ -1,5 +1,5 @@
 export default function usersReducer(
-  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [], friends: [], groupUsers: [], yelpResults: [], groupMessages: []  },
+  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [], friends: [], groupUsers: [], yelpResults: [], groupMessages: [], conversations: []  },
   action
 ) {
   switch (action.type) {
@@ -20,6 +20,7 @@ export default function usersReducer(
           lastName: action.payload.last_name,
           groups: action.payload.groups,
           events: action.payload.events,
+          conversations: action.payload.conversations,
           loggedIn: true,
           loading: false
         };
@@ -51,6 +52,9 @@ export default function usersReducer(
       return {...state, groupMessages: state.groupMessages}
     case 'RESET_GROUP_MESSAGES':
       return {...state, groupMessages: []}
+    case 'ADD_CONVO':
+      state.conversations.push(action.payload)
+      return {...state, conversations: state.conversations}
     default:
       return state;
   }
