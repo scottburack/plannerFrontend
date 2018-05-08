@@ -55,9 +55,9 @@ class AddEventForm extends React.Component {
           <label>End Date: </label>
           <Input required type='date' name='dateEnd' value={this.state.dateEnd} onChange={(event) => this.handleChange(event)} />
           <label>Start Time: </label>
-          <Input required type='time' name='timeStart' value={this.state.timeStart} onChange={(event) => this.handleChange(event)} />
+          <Input type='time' name='timeStart' value={this.state.timeStart} onChange={(event) => this.handleChange(event)} />
           <label>End Time: </label>
-          <Input required type='time' name='timeEnd' value={this.state.timeEnd} onChange={(event) => this.handleChange(event)} />
+          <Input type='time' name='timeEnd' value={this.state.timeEnd} onChange={(event) => this.handleChange(event)} />
           <br/>
           <Input type='submit' value='Add Event'/>
         </Form>

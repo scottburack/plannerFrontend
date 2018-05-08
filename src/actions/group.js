@@ -74,6 +74,11 @@ export function resetGroupMessages() {
   dispatch({type: 'RESET_GROUP_MESSAGES'})
 }
 
+export function resetGroupEvents() {
+  return dispatch =>
+  dispatch({type: 'RESET_GROUP_EVENTS'})
+}
+
 export function addMessageToGroupMessages(content, groupId, senderUsername) {
   return dispatch => {
     fetch('http://localhost:3000/api/v1/group_messages', {

@@ -6,6 +6,7 @@ import { getCurrentUser, getUsers, logOutUser } from '../actions/user'
 import AddGroupForm from '../components/AddGroupForm'
 import Group from '../components/Group'
 import Journal from '../components/Journal'
+import UserCalendar from '../components/UserCalendar'
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -14,10 +15,6 @@ class UserDashboard extends React.Component {
   handleLogout = () => {
     this.props.logOutUser()
   }
-
-  // componentDidMount = () => {
-  //   this.props.getUserGroups(this.props.username)
-  // }
 
   renderGroups = () => {
     console.log("render groups triggered");
@@ -46,6 +43,7 @@ class UserDashboard extends React.Component {
           <Content>
             <h3>Journal</h3>
             <Journal />
+            <UserCalendar />
           </Content>
         </Layout>
         </Layout>

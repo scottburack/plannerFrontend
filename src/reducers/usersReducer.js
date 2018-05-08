@@ -32,7 +32,8 @@ export default function usersReducer(
     case "GET_GROUPS":
       return {...state, groups: action.payload}
     case "GET_EVENTS":
-      return {...state, events: action.payload}
+      state.events.push(action.payload)
+      return {...state, events: state.events}
     case "GET_FRIENDS":
       return {...state, friends: action.payload}
     case "EVENT_VOTES":
