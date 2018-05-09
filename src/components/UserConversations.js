@@ -18,7 +18,8 @@ class UserConversations extends React.Component {
       newConvoClicked: false,
       friendSearch: '',
       queryFriends: [],
-      convoClicked: false
+      convoClicked: false,
+      convoClickedId: null
     }
   }
 
@@ -61,30 +62,38 @@ class UserConversations extends React.Component {
         let recipient = {}
         if (convo.sender_id === this.props.userId) {
           recipient = this.state.queryFriends.find(friend => friend.id === convo.recipient_id)
-          console.log(recipient);
         } else {
           recipient = this.state.queryFriends.find(friend => friend.id === convo.sender_id)
-          console.log(recipient);
         }
 
-        return <p onClick={(e) => this.renderMessages(e)}>{recipient.username}</p>
+        return <p onClick={(e) => this.renderMessages(e, convo.id)}>{recipient.username}</p>
       }
     })
   }
 
-  renderMessages = (event) => {
+  renderMessages = (event, convoId) => {
     event.preventDefault()
+    this.setState({
+      convoClicked: true,
+      convoClickedId: convoId
+
+    })
+  }
+
+  showConvoMessages = () => {
     this.setState({
       convoClicked: true
     })
   }
 
   render() {
-    console.log(this.props.conversations);
-    console.log(this.state.queryFriends);
+    console.log(this.state.convoClicked);
     return (
       <div>
         <h2>Conversations</h2>
+        <div>
+          {this.state.convoClicked ? <Messages showConvoMessages={this.showConvoMessages} convoId={this.state.convoClickedId}/> : null}
+        </div>
         {this.props.conversations.length > 0 && this.state.queryFriends.length > 0 ? this.renderConversations() : null}
         <Button onClick={(e) => this.addNewConversation(e)}>New Conversation</Button>
         { this.state.newConvoClicked ?
@@ -94,9 +103,7 @@ class UserConversations extends React.Component {
           </div>
           : null }
         {this.state.newConvoClicked && this.state.friendSearch !== '' ? this.renderForFriendSearch() : null}
-        <div>
-          {this.state.convoClicked ? <Messages /> : null}
-        </div>
+
       </div>
     )
   }

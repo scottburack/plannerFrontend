@@ -1,5 +1,5 @@
 export default function usersReducer(
-  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [], friends: [], groupUsers: [], yelpResults: [], groupMessages: [], conversations: []  },
+  state = {userId: null, username: null, firstName: null, lastName: null, loggedIn: false, loading: false, users: [], groups: [], events: [], friends: [], groupUsers: [], yelpResults: [], groupMessages: [], conversations: [], messages: []  },
   action
 ) {
   switch (action.type) {
@@ -55,6 +55,11 @@ export default function usersReducer(
     case 'ADD_CONVO':
       state.conversations.push(action.payload)
       return {...state, conversations: state.conversations}
+    case 'ADD_MESSAGE':
+      state.messages.push(action.payload)
+      return {...state, messages: state.messages}
+    case 'GET_MESSAGES':
+      return {...state, messages: action.payload}
     default:
       return state;
   }

@@ -138,3 +138,47 @@ export function addToConversations(convo) {
     payload: convo
   }
 }
+
+export function createMessage(body, userId, convoId) {
+
+  return dispatch => {
+    fetch(`http://localhost:3000/api/v1/conversations/${convoId}/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        body: body,
+        user_id: userId,
+        conversation_id: convoId
+      })
+    })
+      .then(response => response.json())
+      .then(msg => {
+        dispatch(addMessage(msg));
+      });
+  };
+}
+
+export function addMessage(msg) {
+  return {
+    type: "ADD_MESSAGE",
+    payload: msg
+  }
+}
+
+export function getConvoMessages(convoId) {
+  return dispatch => {
+    fetch(`http://localhost:3000/api/v1/conversations/${convoId}/messages`)
+    .then(response => response.json())
+    .then(msgs => dispatch(getMessages(msgs)))
+  }
+}
+
+export function getMessages(msgs) {
+  return {
+    type: 'GET_MESSAGES',
+    payload: msgs
+  }
+}
