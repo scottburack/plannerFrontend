@@ -113,6 +113,7 @@ export function getAllUsers() {
 }
 
 export function addConversation(senderId, recieverId) {
+  console.log('add convo');
   return dispatch => {
     fetch("http://localhost:3000/api/v1/conversations", {
       method: "POST",

@@ -34,8 +34,7 @@ export function getFriends(groupId) {
     .then(resp => resp.json())
     .then(friends => {
       dispatch({type: 'GET_FRIENDS', payload: friends})
-    }
-    )
+    })
   }
 }
 
@@ -113,7 +112,38 @@ export function getGroupMessages(groupId) {
     .then(resp => resp.json())
     .then(msgs => {
       dispatch({type: 'GET_GROUP_MESSAGES', payload: msgs})
-    }
-    )
+    })
+  }
+}
+
+export function addEvent(groupId, name, dateStart, dateEnd, timeStart, timeEnd, votes) {
+  return dispatch => {
+    fetch('http://localhost:3000/api/v1/events', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        event: {
+          group_id: groupId,
+          name: name,
+          date_start: dateStart,
+          date_end: dateEnd,
+          time_start: timeStart,
+          time_end: timeEnd,
+          votes: votes
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(groupEvents => dispatch(getEvents(groupEvents)))
+  }
+}
+
+export function getEvents(groupEvents) {
+  return {
+    type: 'GET_EVENTS',
+    payload: groupEvents
   }
 }

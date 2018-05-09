@@ -43,7 +43,6 @@ class UserConversations extends React.Component {
   }
 
   renderForFriendSearch = () => {
-    console.log(this.state);
     const filteredFriends = this.state.queryFriends.filter(user => {
       return user.username.toUpperCase().includes(this.state.friendSearch.toUpperCase())
     })
@@ -65,7 +64,6 @@ class UserConversations extends React.Component {
         } else {
           recipient = this.state.queryFriends.find(friend => friend.id === convo.sender_id)
         }
-
         return <p onClick={(e) => this.renderMessages(e, convo.id)}>{recipient.username}</p>
       }
     })
@@ -88,13 +86,14 @@ class UserConversations extends React.Component {
 
   render() {
     console.log(this.state.convoClicked);
+    console.log(this.props.conversations);
     return (
       <div>
         <h2>Conversations</h2>
         <div>
           {this.state.convoClicked ? <Messages showConvoMessages={this.showConvoMessages} convoId={this.state.convoClickedId}/> : null}
         </div>
-        {this.props.conversations.length > 0 && this.state.queryFriends.length > 0 ? this.renderConversations() : null}
+        {(this.props.conversations.length > 0 && this.state.queryFriends.length > 0) ? this.renderConversations() : null}
         <Button onClick={(e) => this.addNewConversation(e)}>New Conversation</Button>
         { this.state.newConvoClicked ?
           <div>

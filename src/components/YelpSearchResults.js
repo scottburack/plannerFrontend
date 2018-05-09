@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 class YelpSearchResults extends React.Component {
 
-  handleOnClick = (e) => {
+  handleOnYelpEventClick = (e) => {
     this.props.clickedEvent(e)
     this.props.showAddEventForm(e)
   }
@@ -15,7 +15,7 @@ class YelpSearchResults extends React.Component {
       return (
           <div className='yelp-results'>
             <h2><a href={result.url} target='_blank'>{result.name}</a></h2>
-            <img name='addEventButtonClicked' className='yelp-images' src={result.image_url} onClick={(e) => this.handleOnClick(e)} />
+            <img name='addEventButtonClicked' className='yelp-images' src={result.image_url} onClick={(e) => this.handleOnYelpEventClick(e)} />
           </div>
 
       )

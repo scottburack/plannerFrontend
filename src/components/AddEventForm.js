@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addEvent } from '../actions/event'
+import { bindActionCreators } from 'redux'
 import {Input, Form} from 'antd'
+import * as actions from '../actions/group'
 
 class AddEventForm extends React.Component {
 
@@ -22,7 +23,7 @@ class AddEventForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.addEvent(
+    this.props.actions.addEvent(
       this.props.groupId,
       this.state.name,
       this.state.dateStart,
@@ -39,7 +40,7 @@ class AddEventForm extends React.Component {
       timeEnd: ''
     })
 
-    this.props.clickedEvent(event)
+    this.props.actions.resetYelpResults()
   }
 
 
@@ -70,4 +71,10 @@ const mapStateToProps = (state) => {
   return {...state.usersReducer}
 }
 
-export default connect(mapStateToProps, {addEvent})(AddEventForm)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddEventForm)

@@ -35,6 +35,7 @@ class GroupDashboard extends React.Component {
     if (this.props.friends.length === 0) {
       console.log('In group mount');
       this.props.actions.getFriends(this.state.groupId);
+      this.props.actions.getGroupMessages(this.state.groupId)
     }
 
     if (this.props.yelpResults.length > 0) {
@@ -43,7 +44,7 @@ class GroupDashboard extends React.Component {
       })
     }
 
-    this.props.groupMessages.length === 0 ? this.props.actions.getGroupMessages(this.state.groupId) : null
+    // this.props.groupMessages.length === 0 ? this.props.actions.getGroupMessages(this.state.groupId) : null
 
 
     window.onpopstate = this.onBackButtonEvent;
@@ -107,7 +108,6 @@ class GroupDashboard extends React.Component {
   }
 
   handleYelpResultsCancel = (event) => {
-    event.preventDefault()
     this.setState({
       yelpFormSubmitted: false
     })
@@ -146,8 +146,8 @@ class GroupDashboard extends React.Component {
 
 
   render() {
-    console.log(this.props);
-
+    console.log(this.props.friends.length);
+    console.log(this.state);
     return (
       <div id='group-dashboard'>
         <Layout>
