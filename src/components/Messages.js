@@ -9,11 +9,14 @@ class Messages extends React.Component {
 
   state = {
     message: '',
-    messages: []
+    messages: [],
+    users: []
   }
 
   componentDidMount = () => {
     fetch(`http://localhost:3000/api/v1/conversations/${this.props.convoId}/messages`).then(resp => resp.json()).then(json => this.setState({messages: json}))
+    // fetch("http://localhost:3000/api/v1/users").then(resp => resp.json()).then(json => this.setState({users: json}))
+
   }
 
   handleInputChange = (event) => {
@@ -38,14 +41,15 @@ class Messages extends React.Component {
 
   renderMessages = () => {
     return this.state.messages.map(msg => {
-      return <p>{msg.body}</p>
+      let user = this.props.users.find(u => u.id === msg.user_id)
+      return <p>{user.username}: {msg.body}</p>
     })
   }
 
   render() {
     console.log(this.props.convoId)
     return (
-      <div>
+      <div id='messages'>
         {this.state.messages.length > 0 ? this.renderMessages() : null}
         <div>
           <Input type='text' placeholder='Your Message' value={this.state.message} onChange={ (e) => this.handleInputChange(e)} />

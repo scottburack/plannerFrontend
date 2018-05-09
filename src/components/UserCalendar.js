@@ -68,11 +68,13 @@ class UserCalendar extends React.Component {
   render() {
 
     return (
-      <div style={ {height: '50vh', width: '100vh', margin: '10px'}}>
-        <BigCalendar
-          events= {this.renderEvents()}
-          onSelectEvent= {(e) => this.handleEventCalenderClick(e)}
-        />
+      <div>
+        <div style={ {height: '50vh', width: '100vh', margin: '10px'}}>
+          <BigCalendar
+            events= {this.renderEvents()}
+            onSelectEvent= {(e) => this.handleEventCalenderClick(e)}
+          />
+        </div>
       </div>
     )
   }

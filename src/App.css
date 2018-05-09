@@ -1,7 +1,10 @@
 @import '~antd/dist/antd.css';
 
+
 .App {
   height: 100%;
+  font-family: 'Patua One', cursive;
+  font-size: 1.2em;
 }
 
 #user-dashboard {
@@ -11,6 +14,15 @@
 #group-dashboard {
   height: 100%;
 }
+
+#login-signup-form {
+  height: 100%
+}
+
+/* #homepage{
+  height: 100%;
+  z-index: -1
+} */
 
 .ant-layout {
   height: 100%;
@@ -63,4 +75,43 @@
   display: block;
   position: relative;
   clear: both;
+}
+
+.events-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(5, auto)
+}
+
+#messages-container {
+  float: right;
+  margin-right: 25%;
+  width: 40%;
+  border: solid #D1DDDB;
+  font-family: 'Patua One', cursive;
+}
+
+#convo-container {
+  float: left;
+  width: 20%;
+  margin-left: 10%;
+  border: solid #D1DDDB;
+  font-family: 'Patua One', cursive;
+}
+
+.events {
+  margin-top: 20px;
+  margin-left: 15px;
+}
+
+.group-event-cards {
+  background: #E0EDFF;
+  border: solid #D1DDDB;
+  font-family: 'Patua One', cursive;
+}
+
+.journal-entries {
+  background: #FBD1A7;
+  border: solid #D1DDDB;
+  font-family: 'Patua One', cursive;
 }

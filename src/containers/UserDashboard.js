@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css'
-import { Layout, Button } from 'antd'
+import { Layout, Button, Tabs } from 'antd'
 import { connect } from 'react-redux'
 import { getCurrentUser, getUsers, logOutUser } from '../actions/user'
 import AddGroupForm from '../components/AddGroupForm'
@@ -10,11 +10,16 @@ import UserCalendar from '../components/UserCalendar'
 import UserConversations from '../components/UserConversations'
 
 const { Header, Footer, Sider, Content } = Layout;
+const TabPane = Tabs.TabPane;
 
 class UserDashboard extends React.Component {
 
   handleLogout = () => {
     this.props.logOutUser()
+  }
+
+  callback(key) {
+    console.log(key);
   }
 
   renderGroups = () => {
@@ -42,10 +47,11 @@ class UserDashboard extends React.Component {
             <AddGroupForm />
           </Sider>
           <Content>
-            <h3>Journal</h3>
-            <Journal />
-            <UserCalendar />
-            <UserConversations />
+          <Tabs defaultActiveKey="1" onChange={this.callback}>
+            <TabPane tab='Event Calendar' key="1"><UserCalendar /></TabPane>
+            <TabPane tab='Journal' key='2'><Journal /></TabPane>
+            <TabPane tab='Conversations' key='3'><UserConversations /></TabPane>
+          </Tabs>
           </Content>
         </Layout>
         </Layout>

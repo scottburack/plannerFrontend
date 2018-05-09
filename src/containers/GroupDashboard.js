@@ -15,7 +15,8 @@ import * as actions from '../actions/group'
 import AddFriendSearchBar from '../components/AddFriendSearchBar'
 import Friend from '../components/Friend'
 import GroupCalendar from '../components/GroupCalendar'
-import { Layout, Modal, Button } from 'antd';
+import { Layout, Modal, Button, Tabs } from 'antd';
+const TabPane = Tabs.TabPane;
 const { Header, Footer, Sider, Content } = Layout;
 
 class GroupDashboard extends React.Component {
@@ -166,43 +167,48 @@ class GroupDashboard extends React.Component {
               <button name='addFriendButtonClicked' onClick={this.handleClick}>Add Friend!</button>
             </Sider>
             <Content>
-              <h2>Events!</h2>
-              <ul>
-                { this.props.events ? this.renderEvents() : null }
-              </ul>
+            <Tabs>
+              <TabPane tab='Upcomming Events' key="1">
+                <Button name='addEventButtonClicked' onClick={this.handleClick}>Add Event!</Button>
+                <Button name='searchYelpClick' onClick={this.handleClick}>Find Somewhere To Go!</Button>
+                <br/><br/>
+                <div className='events-container'>
+                  { this.props.events ? this.renderEvents() : null }
+                </div>
 
-              <Button name='addEventButtonClicked' onClick={this.handleClick}>Add Event!</Button>
-              <Modal title="What's the plan?"
-                visible={this.state.addEventButtonClicked}
-                onOk={this.handleOk}
-                onCancel={this.handleCancel}
-              >
-                <AddEventForm groupId={this.state.groupId} clickedEvent={this.handleYelpResultsCancel}/>
-              </Modal>
+                <Modal title="What's the plan?"
+                  visible={this.state.addEventButtonClicked}
+                  onOk={this.handleOk}
+                  onCancel={this.handleCancel}
+                >
+                  <AddEventForm groupId={this.state.groupId} clickedEvent={this.handleYelpResultsCancel}/>
+                </Modal>
 
-              <Button name='searchYelpClick' onClick={this.handleClick}>Find Somewhere To Go!</Button>
-              <Modal title="What's the plan?"
-                visible={this.state.searchYelpClick}
-                onOk={this.handleOk}
-                onCancel={this.handleYelpCancel}
-              >
-              <AddYelpEventForm handleYelpCancel={this.handleYelpCancel} yelpFormSubmitted={this.yelpFormSubmitted} />
-              </Modal>
+                <Modal title="What's the plan?"
+                  visible={this.state.searchYelpClick}
+                  onOk={this.handleOk}
+                  onCancel={this.handleYelpCancel}
+                >
+                <AddYelpEventForm handleYelpCancel={this.handleYelpCancel} yelpFormSubmitted={this.yelpFormSubmitted} />
+                </Modal>
 
-              <Modal title="Search Results ..."
-                visible={this.state.yelpFormSubmitted}
-                onOk={this.handleOk}
-                onCancel={this.handleYelpResultsCancel}
-                width= '75%'
-              >
-                <YelpSearchResults clickedEvent={this.handleYelpResultsCancel} showAddEventForm={this.handleClick}/>
+                <Modal title="Search Results ..."
+                  visible={this.state.yelpFormSubmitted}
+                  onOk={this.handleOk}
+                  onCancel={this.handleYelpResultsCancel}
+                  width= '75%'
+                >
+                  <YelpSearchResults clickedEvent={this.handleYelpResultsCancel} showAddEventForm={this.handleClick}/>
 
-              </Modal>
-
-              <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
-
-              <GroupMessages groupId={this.state.groupId}/>
-
+                </Modal>
+              </TabPane>
+              <TabPane tab='Group Calendar' key='2'>
+                <GroupCalendar eventsToShow={this.state.eventsToShow} groupId={this.state.groupId}/>
+              </TabPane>
+              <TabPane tab='Group Chat' key='3'>
+                <GroupMessages groupId={this.state.groupId}/>
+              </TabPane>
+            </Tabs>
             </Content>
             </Layout>
           </Layout>

@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Moment from 'moment'
-import Event from './Event'
+import JournalEvent from './JournalEvent'
+import { Card } from 'antd';
 
 class Journal extends React.Component {
 
@@ -13,7 +14,7 @@ class Journal extends React.Component {
     })
 
     return pastEvents.map(event => {
-      return <Event key={event.id} event={event} />
+      return <JournalEvent key={event.id} event={event} />
     })
   }
 

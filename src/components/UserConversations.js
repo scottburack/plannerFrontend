@@ -72,7 +72,7 @@ class UserConversations extends React.Component {
   renderMessages = (event, convoId) => {
     event.preventDefault()
     this.setState({
-      convoClicked: true,
+      convoClicked: !this.state.convoClicked,
       convoClickedId: convoId
 
     })
@@ -89,12 +89,15 @@ class UserConversations extends React.Component {
     console.log(this.props.conversations);
     return (
       <div>
-        <h2>Conversations</h2>
-        <div>
-          {this.state.convoClicked ? <Messages showConvoMessages={this.showConvoMessages} convoId={this.state.convoClickedId}/> : null}
+        <div id='messages-container'>
+          {this.state.convoClicked ? <Messages users={this.state.queryFriends} howConvoMessages={this.showConvoMessages} convoId={this.state.convoClickedId}/> : null}
         </div>
-        {(this.props.conversations.length > 0 && this.state.queryFriends.length > 0) ? this.renderConversations() : null}
-        <Button onClick={(e) => this.addNewConversation(e)}>New Conversation</Button>
+
+        <div id='convo-container'>
+          <h2>Conversations</h2>
+          {(this.props.conversations.length > 0 && this.state.queryFriends.length > 0) ? this.renderConversations() : null}
+          <Button onClick={(e) => this.addNewConversation(e)}>New Conversation</Button>
+
         { this.state.newConvoClicked ?
           <div>
             <label>Find Person To Message</label>
@@ -102,7 +105,7 @@ class UserConversations extends React.Component {
           </div>
           : null }
         {this.state.newConvoClicked && this.state.friendSearch !== '' ? this.renderForFriendSearch() : null}
-
+        </div>
       </div>
     )
   }

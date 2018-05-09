@@ -1,44 +1,15 @@
 import React from 'react'
+import * as actions from '../actions/event'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import ThumbsUp from 'react-icons/lib/fa/thumbs-o-up'
-import ThumbsDown from 'react-icons/lib/fa/thumbs-o-down'
-import * as actions from '../actions/event'
-import { Card } from 'antd';
+import { Card, Input, Button } from 'antd';
+const { TextArea } = Input;
 
+class JournalEvent extends React.Component {
 
-
-
-class Event extends React.Component {
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      votes: this.props.event.votes,
-      userUpvote: this.props.event.votes + 1,
-      userDownvote: this.props.event.votes - 1
-    }
+  state = {
+    journalEntry: ''
   }
-
-  handleUpvote = (event) => {
-    event.preventDefault()
-    if (this.state.userUpvote !== this.state.votes) {
-      this.setState({
-        votes: this.state.votes + 1
-      }, () => actions.handleEventVoting(this.state.votes, this.props.event.id))
-    }
-  }
-
-  handleDownvote = (event) => {
-    event.preventDefault()
-    if (this.state.userDownvote !== this.state.votes) {
-      this.setState({
-        votes: this.state.votes - 1
-      }, () => actions.handleEventVoting(this.state.votes, this.props.event.id))
-    }
-  }
-
 
   parseTime = (dateTime) => {
     let newDate = new Date(dateTime)
@@ -58,17 +29,31 @@ class Event extends React.Component {
     return newTime
   }
 
+  handleJournalChange = (event) => {
+    event.preventDefault()
+    this.setState({
+      journalEntry: event.target.value
+    })
+  }
+
+  handleAddEntry = (event) => {
+    actions.addJournalEntry(this.state.journalEntry, this.props.event.id)
+    this.setState({
+      journalEntry: ''
+    })
+  }
+
   render() {
     return (
       <div className='events'>
-        <Card className='group-event-cards' title={this.props.event.name} style={{ width: 300 }}>
+        <Card className='journal-entries' title={this.props.event.name} bordered={false} style={{ width: 300 }}>
           <p>Start Date: {this.props.event.date_start}</p>
           <p>End Date: {this.props.event.date_end}</p>
           <p>Start Time: {this.props.event.time_start !== null ? this.parseTime(this.props.event.time_start) : 'No Time Given'}</p>
           <p>End Time: {this.props.event.time_end !== null ? this.parseTime(this.props.event.time_end) : 'No Time Given'}</p>
-          <p>Votes: {this.state.votes}</p>
-        <ThumbsUp onClick={(e) => {this.handleUpvote(e)}}/>
-        <ThumbsDown onClick={(e) => {this.handleDownvote(e)}} />
+          <p> Journal Entry: {this.props.event.journal_entry}</p>
+          <TextArea placeholder="Journal Entry" autosize value={this.state.journalEntry} onChange={this.handleJournalChange}/>
+          <Button onClick={(e) => this.handleAddEntry(e)}>Add Entry</Button>
         </Card>
       </div>
     )
@@ -83,4 +68,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapDispatchToProps)(Event)
+export default connect(mapDispatchToProps)(JournalEvent)

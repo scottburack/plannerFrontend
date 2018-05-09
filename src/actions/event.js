@@ -83,3 +83,22 @@ export function setYelpResults(yelpResults) {
     payload: yelpResults
   }
 }
+
+export function addJournalEntry(entry, eventId) {
+  // debugger
+    fetch(`http://localhost:3000/api/v1/events/${eventId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        event: {
+          journal_entry: entry
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(event => console.log(event))
+  console.log('done');
+}
