@@ -146,19 +146,21 @@ class GroupDashboard extends React.Component {
     return (
       <div id='group-dashboard'>
         <Layout>
-          <Header>
+          <Header className='header'>
             <h1 style={{color:'white', float: 'left'}}>{this.props.groups.length > 0 ? this.getGroupName() : null}</h1>
             <Link to={'/userdashboard/'} onClick={() => this.onBackButtonEvent()} style={{color:'white', float: 'right'}}>Home</Link>
           </Header>
           <Layout>
-            <Sider>
-              <h3 style={{color:'white'}}>Friends!</h3>
-              <ul>
-                { this.props.friends.length > 0 ? this.renderFriends() : null}
-              </ul>
-              {this.state.addFriendButtonClicked ? <AddFriendSearchBar friendSearch={this.state.friendSearch} handleChange={this.handleFriendSearchChange} /> : null}
-              {this.state.addFriendButtonClicked && this.state.friendSearch !== '' ? this.renderForFriendSearch() : null}
-              <button name='addFriendButtonClicked' onClick={this.handleClick}>Add Friend!</button>
+            <Sider className='sider'>
+              <div>
+                <h3 id='friends-text'>Friends!</h3>
+                <ul>
+                  { this.props.friends.length > 0 ? this.renderFriends() : null}
+                </ul>
+                {this.state.addFriendButtonClicked ? <AddFriendSearchBar friendSearch={this.state.friendSearch} handleChange={this.handleFriendSearchChange} /> : null}
+                {this.state.addFriendButtonClicked && this.state.friendSearch !== '' ? this.renderForFriendSearch() : null}
+                <button id='add-friend' name='addFriendButtonClicked' onClick={this.handleClick}>Add Friend!</button>
+              </div>
             </Sider>
             <Content>
             <Tabs>

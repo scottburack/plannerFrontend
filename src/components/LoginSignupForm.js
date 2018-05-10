@@ -67,7 +67,7 @@ class LoginSignupForm extends React.Component {
         <Header>
           <marquee><h1 style={{color: 'white'}}>Welcome to Plannerize</h1></marquee>
         </Header>
-        <Content>
+        <Content id='homepage-content'>
           <div id='login-form'>
           <Card title='Log In!' style={{ width: 300 }} className='signin-form'>
           <form onSubmit={this.handleLoginSubmit} className="login-form">

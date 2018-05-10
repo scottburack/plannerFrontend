@@ -34,12 +34,12 @@ class UserDashboard extends React.Component {
     return (
       <div id='user-dashboard'>
         <Layout>
-          <Header>
+          <Header className='header'>
             <h1 className='username-label'>Hello {this.props.firstName} {this.props.lastName}</h1>
             <Button style={{float: 'right'}} onClick={this.handleLogout}>Logout</Button>
           </Header>
         <Layout>
-          <Sider>
+          <Sider className='sider'>
             <h3 id='groups-label'>Groups</h3>
             <ul>
               { this.props.groups !== undefined ? this.renderGroups() : null}
