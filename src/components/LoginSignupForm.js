@@ -65,7 +65,7 @@ class LoginSignupForm extends React.Component {
       <div id= 'login-signup-form'>
       <Layout>
         <Header>
-          <marquee><h1 style={{color: 'white'}}>Welcome to Planner</h1></marquee>
+          <marquee><h1 style={{color: 'white'}}>Welcome to Plannerize</h1></marquee>
         </Header>
         <Content>
           <div id='login-form'>

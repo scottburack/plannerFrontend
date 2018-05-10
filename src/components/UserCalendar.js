@@ -3,6 +3,7 @@ import Moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import { connect } from 'react-redux'
 import { parseTime } from '../commonFunctions'
+import { Modal } from 'antd'
 require('react-big-calendar/lib/css/react-big-calendar.css')
 require('../index.css')
 
@@ -16,7 +17,13 @@ class UserCalendar extends React.Component {
     super(props)
 
     this.state = {
-      events: []
+      events: [],
+      handleEventClicked: false,
+      clickedEventTimeStart: '',
+      clickedEventTimeEnd: '',
+      clickedEventVotes: '',
+      clickedEventName: '',
+      clickedEventGroup: ''
     }
   }
 
@@ -61,8 +68,41 @@ class UserCalendar extends React.Component {
     return newTime
   }
 
+  handleCancel = (event) => {
+    // event.preventDefault()
+    this.setState({
+      handleEventClicked: false,
+      clickedEventTimeStart: '',
+      clickedEventTimeEnd: '',
+      clickedEventVotes: '',
+      clickedEventName: '',
+      clickedEventGroup: ''
+    });
+  }
+
+  eventInfo = () => {
+    console.log(this.state.clickedEventTimeStart);
+    return (
+      <div>
+      {this.state.clickedEventGroup} <br/>
+      {this.state.clickedEventName}: <span> </span>
+      {this.parseTime(this.state.clickedEventTimeStart)} - {this.parseTime(this.state.clickedEventTimeEnd)}
+      <br/>Votes: {this.state.clickedEventVotes}
+      </div>
+    )
+  }
+
   handleEventCalenderClick = (event) => {
-    alert(`${event.groupName} \n Event name: ${event.title} \n ${this.parseTime(event.timeStart)} - ${this.parseTime(event.timeEnd)} \n Votes: ${event.votes}`)
+    // alert(`${this.parseTime(event.timeStart)} - ${this.parseTime(event.timeEnd)} \n Votes: ${event.votes}`)
+    this.setState({
+      handleEventClicked: true,
+      clickedEventTimeStart: event.timeStart,
+      clickedEventTimeEnd: event.timeEnd,
+      clickedEventVotes: event.votes,
+      clickedEventName: event.title,
+      clickedEventGroup: event.groupName
+    })
+
   }
 
   render() {
@@ -75,6 +115,13 @@ class UserCalendar extends React.Component {
             onSelectEvent= {(e) => this.handleEventCalenderClick(e)}
           />
         </div>
+        <Modal title="Event Details"
+        visible={this.state.handleEventClicked}
+        onOk={this.handleCancel}
+        onCancel={this.handleCancel}
+        >
+        {this.eventInfo()}
+        </Modal>
       </div>
     )
   }

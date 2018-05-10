@@ -3,6 +3,7 @@ import Moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import { connect } from 'react-redux'
 import { parseTime } from '../commonFunctions'
+import { Modal } from 'antd'
 require('react-big-calendar/lib/css/react-big-calendar.css')
 require('../index.css')
 
@@ -16,7 +17,12 @@ class GroupCalendar extends React.Component {
     super(props)
 
     this.state = {
-      events: []
+      events: [],
+      handleEventClicked: false,
+      clickedEventTimeStart: '',
+      clickedEventTimeEnd: '',
+      clickedEventVotes: '',
+      clickedEventName: ''
     }
   }
 
@@ -50,7 +56,8 @@ class GroupCalendar extends React.Component {
         title: event.name,
         votes: event.votes,
         timeStart: event.time_start,
-        timeEnd: event.time_end
+        timeEnd: event.time_end,
+        eventId: event.id
       }
     })
   }
@@ -73,8 +80,38 @@ class GroupCalendar extends React.Component {
     return newTime
   }
 
+  handleCancel = (event) => {
+    // event.preventDefault()
+    this.setState({
+      handleEventClicked: false,
+      clickedEventTimeStart: '',
+      clickedEventTimeEnd: '',
+      clickedEventVotes: '',
+      clickedEventName: ''
+    });
+  }
+
+  eventInfo = () => {
+    console.log(this.state.clickedEventTimeStart);
+    return (
+      <div>
+      {this.state.clickedEventName}: <span> </span>
+      {this.parseTime(this.state.clickedEventTimeStart)} - {this.parseTime(this.state.clickedEventTimeEnd)}
+      <br/>Votes: {this.state.clickedEventVotes}
+      </div>
+    )
+  }
+
   handleEventCalenderClick = (event) => {
-    alert(`${this.parseTime(event.timeStart)} - ${this.parseTime(event.timeEnd)} \n Votes: ${event.votes}`)
+    // alert(`${this.parseTime(event.timeStart)} - ${this.parseTime(event.timeEnd)} \n Votes: ${event.votes}`)
+    this.setState({
+      handleEventClicked: true,
+      clickedEventTimeStart: event.timeStart,
+      clickedEventTimeEnd: event.timeEnd,
+      clickedEventVotes: event.votes,
+      clickedEventName: event.title
+    })
+
   }
 
   render() {
@@ -87,6 +124,13 @@ class GroupCalendar extends React.Component {
           // start='start_date'
           // end='end_date'
         />
+        <Modal title="Event Details"
+        visible={this.state.handleEventClicked}
+        onOk={this.handleCancel}
+        onCancel={this.handleCancel}
+        >
+        {this.eventInfo()}
+        </Modal>
       </div>
     )
   }
