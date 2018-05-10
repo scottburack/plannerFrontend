@@ -94,12 +94,6 @@ class GroupDashboard extends React.Component {
     });
   }
 
-  // handleSearchYelpClick = () => {
-  //   this.setState({
-  //     searchYelpClick: true
-  //   })
-  // }
-
   yelpFormSubmitted = (event) => {
     event.preventDefault()
     this.setState({

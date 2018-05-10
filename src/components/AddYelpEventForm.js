@@ -86,13 +86,13 @@ class AddYelpEventForm extends React.Component {
         <Form onSubmit={this.handleYelpSubmit}>
 
           <label>City: </label>
-          <Input onChange={this.handleChange} id="city-input" type="text" name="city" value={this.state.city}/>
+          <Input required onChange={this.handleChange} id="city-input" type="text" name="city" value={this.state.city}/>
 
           <label>State (if necessary): </label>
           <Input onChange={this.handleChange} id="state-input" type="text" name="state" value={this.state.state}/>
 
           <label>Country: </label>
-          <Input onChange={this.handleChange} id="country-input" type="text" name="country" value={this.state.country}/>
+          <Input required onChange={this.handleChange} id="country-input" type="text" name="country" value={this.state.country}/>
 
           <label>Category: </label>
           <div id='radio-buttons'>
