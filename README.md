@@ -1,4 +1,4 @@
-This is frontend for Plannerize. A social web-app that allows users to plans events with different groups of people they belong to. 
+This is the frontend for Plannerize. A social single page web-app that allows users to plan events with different groups of people they belong to. 
 Users have a provate dashboard where they can see all the events for all their groups on a calendar, a journal that logs past events, and 
 direct messaging with other users.
 Users can create groups. Each group has their own dashboard. Here users can invite other users to join, add events by searching for nearby
