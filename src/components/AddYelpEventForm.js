@@ -55,28 +55,6 @@ class AddYelpEventForm extends React.Component {
     this.props.yelpFormSubmitted(event)
   }
 
-  // handleSubmit = (event) => {
-  //   event.preventDefault()
-  //   this.props.addEvent(
-  //     this.props.groupId,
-  //     this.state.name,
-  //     this.state.dateStart,
-  //     this.state.dateEnd,
-  //     this.state.timeStart,
-  //     this.state.timeEnd,
-  //     this.state.votes,
-  //     this.eventUrl
-  //   )
-  //   this.setState({
-  //     name: '',
-  //     dateStart: '',
-  //     dateEnd: '',
-  //     timeStart: '',
-  //     timeEnd: '',
-  //     eventUrl: ''
-  //   })
-  // }
-
 
 
   render() {

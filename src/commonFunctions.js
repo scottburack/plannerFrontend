@@ -1,5 +1,5 @@
 
-const parseTime = (dateTime) => {
+export const parseTime = (dateTime) => {
   let newDate = new Date(dateTime)
   // debugger
   let getHours
@@ -16,5 +16,3 @@ const parseTime = (dateTime) => {
   newDate.getUTCHours() >= 12 ? newTime += ' PM' : newTime += ' AM'
   return newTime
 }
-
-export default parseTime

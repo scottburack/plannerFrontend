@@ -50,24 +50,6 @@ class UserCalendar extends React.Component {
     })
   }
 
-  parseTime = (dateTime) => {
-    let newDate = new Date(dateTime)
-    // debugger
-    let getHours
-    if (newDate.getUTCHours() > 12) {
-      getHours = newDate.getUTCHours() - 12
-    } else if (newDate.getUTCHours() === 0) {
-      getHours = newDate.getUTCHours() + 12
-    } else {
-      getHours = newDate.getUTCHours()
-    }
-    let getMinutes = String(newDate.getUTCMinutes())
-    getMinutes === '0' ? getMinutes += '0' : getMinutes
-    let newTime = getHours + ':' + getMinutes
-    newDate.getUTCHours() >= 12 ? newTime += ' PM' : newTime += ' AM'
-    return newTime
-  }
-
   handleCancel = (event) => {
     // event.preventDefault()
     this.setState({
@@ -81,12 +63,11 @@ class UserCalendar extends React.Component {
   }
 
   eventInfo = () => {
-    console.log(this.state.clickedEventTimeStart);
     return (
       <div>
       {this.state.clickedEventGroup} <br/>
       {this.state.clickedEventName}: <span> </span>
-      {this.parseTime(this.state.clickedEventTimeStart)} - {this.parseTime(this.state.clickedEventTimeEnd)}
+      {parseTime(this.state.clickedEventTimeStart)} - {parseTime(this.state.clickedEventTimeEnd)}
       <br/>Votes: {this.state.clickedEventVotes}
       </div>
     )

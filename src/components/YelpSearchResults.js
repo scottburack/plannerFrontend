@@ -10,7 +10,6 @@ class YelpSearchResults extends React.Component {
   }
 
   renderYelpResults = () => {
-    console.log(this.props.yelpResults);
     return this.props.yelpResults.map(result => {
       return (
           <div className='yelp-results'>

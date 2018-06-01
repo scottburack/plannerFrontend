@@ -141,8 +141,6 @@ class GroupDashboard extends React.Component {
 
 
   render() {
-    console.log(this.props.friends.length);
-    console.log(this.state);
     return (
       <div id='group-dashboard'>
         <Layout>
