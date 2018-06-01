@@ -1,3 +1,19 @@
+This is the frontend for Plannerize. A social single page web-app that allows users to plan events with different groups of people they belong to. 
+Users have a provate dashboard where they can see all the events for all their groups on a calendar, a journal that logs past events, and 
+direct messaging with other users.
+Users can create groups. Each group has their own dashboard. Here users can invite other users to join, add events by searching for nearby
+activies using the Yelp API or add events without the search, upvote/downvote events, check the gorup calendar, and contrubute to the 
+group message board.
+
+Front-end built with... React.js, Redux, Ant Design, CSS
+
+FrontEnd Oraginzation of Components
+https://www.draw.io/?state=%7B%22ids%22:%5B%221PnqKJCkhh7AjAy5qOgUDHtlC2xOYr23n%22%5D,%22action%22:%22open%22,%22userId%22:%22105162169832093984095%22%7D#G1PnqKJCkhh7AjAy5qOgUDHtlC2xOYr23n
+
+Demo...
+https://drive.google.com/open?id=1_AmIwmT7jrANz0qkv7vhRM9sWMo-2q7F
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
@@ -2442,3 +2458,6 @@ In the future, we might start automatically compiling incompatible third-party m
 ## Something Missing?
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
+
+
+
