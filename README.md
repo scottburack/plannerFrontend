@@ -2,7 +2,7 @@ This is the frontend for Plannerize. A social single page web-app that allows us
 Users have a private dashboard where they can see all the events for all their groups on a calendar, a journal that logs past events, and 
 direct messaging with other users.
 Users can create groups. Each group has their own dashboard. Here users can invite other users to join, add events by searching for nearby
-activies using the Yelp API or add events without the search, upvote/downvote events, check the gorup calendar, and contrubute to the 
+activies using the Yelp API or add events without the search, upvote/downvote events, check the group calendar, and contribute to the 
 group message board.
 
 Front-end built with... React.js, Redux, Ant Design, CSS
